@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "routes": {
+    "LIS-CV": {
+      "name": "LIS里斯本 → 佛得角",
+      "view": [26, -16],
+      "zoom": 4,
+      "dep": {
+        "iata": "LIS",
+        "city": "里斯本",
+        "country": "葡萄牙",
+        "tz": "Europe/Lisbon",
+        "lat": 38.7223,
+        "lon": -9.1393
+      },
+      "arr": {
+        "city": "佛得角",
+        "country": "佛得角",
+        "tz": "Atlantic/Cape_Verde",
+        "lat": 14.9168,
+        "lon": -23.5082
+      }
+    },
+    "CAN-LIS": {
+      "name": "CAN广州 → LIS里斯本",
+      "view": [32, 10],
+      "zoom": 3,
+      "dep": {
+        "iata": "CAN",
+        "city": "广州",
+        "country": "中国",
+        "tz": "Asia/Shanghai",
+        "lat": 23.3923,
+        "lon": 113.2988
+      },
+      "arr": {
+        "iata": "LIS",
+        "city": "里斯本",
+        "country": "葡萄牙",
+        "tz": "Europe/Lisbon",
+        "lat": 38.7223,
+        "lon": -9.1393
+      }
+    }
+  },
+  "pois": {
+    "cv-hotel": {
+      "name": "InterContinental Cape Verde",
+      "type": "hotel",
+      "city": "佛得角",
+      "country": "佛得角",
+      "lat": 14.9168,
+      "lon": -23.5082
+    },
+    "cv-unesco": {
+      "name": "Cidade Velha (UNESCO)",
+      "type": "unesco",
+      "city": "佛得角",
+      "country": "佛得角",
+      "lat": 14.9117,
+      "lon": -23.6044
+    }
+  }
+}

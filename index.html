@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTV-hub | Global Trip &amp; Visa Hub</title>
+    <style>
+        :root {
+            --brand: #003154;
+            --accent: #D20A14;
+            --teal: #009999;
+            --gold: #FEDD00;
+            --bg: #f5f7fa;
+            --card: #ffffff;
+        }
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: var(--bg);
+            color:#1f2937;
+            min-height:100vh;
+        }
+        header {
+            background: linear-gradient(135deg, var(--brand) 0%, #00497f 60%, #00608f 100%);
+            color:#fff;
+            padding:44px 24px 36px;
+            text-align:center;
+        }
+        header h1 { font-size:30px; letter-spacing:1px; }
+        header .sub { margin-top:10px; opacity:.9; font-size:15px; max-width:720px; margin-left:auto; margin-right:auto; line-height:1.6;}
+        header .badge {
+            display:inline-block; margin-top:14px; padding:4px 12px;
+            background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3);
+            border-radius:999px; font-size:12px;
+        }
+        main { max-width:980px; margin:0 auto; padding:28px 20px 48px; }
+        .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; }
+        .card {
+            background:var(--card); border-radius:12px; padding:22px;
+            box-shadow:0 2px 10px rgba(0,0,0,.06);
+            border-top:4px solid var(--brand);
+            display:flex; flex-direction:column;
+            transition:transform .15s ease, box-shadow .15s ease;
+            text-decoration:none; color:inherit;
+        }
+        .card:hover { transform:translateY(-3px); box-shadow:0 8px 22px rgba(0,0,0,.12); }
+        .card.teal  { border-top-color: var(--teal); }
+        .card.gold  { border-top-color: var(--gold); }
+        .card h3 { font-size:19px; margin-bottom:8px; display:flex; align-items:center; gap:8px;}
+        .card .dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+        .card p { font-size:14px; color:#4b5563; line-height:1.65; flex:1;}
+        .card .tag { margin-top:14px; font-size:12px; color:var(--brand); font-weight:600;}
+        .status {
+            margin-top:26px; padding:16px 20px; background:#fff7ed;
+            border:1px solid #fed7aa; border-radius:10px; font-size:13px; line-height:1.7; color:#7c4a03;
+        }
+        .status code { background:#f1f5f9; padding:1px 6px; border-radius:4px; font-size:12px;}
+        footer { text-align:center; padding:20px; font-size:12px; color:#9ca3af; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GTV-hub</h1>
+        <div class="sub">Global Trip &amp; Visa Hub · 全球商旅行程智能规划平台<br>
+            多始发地航班大圆航线 · 中转/入境签证校验 · UNESCO 遗产点位 · 距离测算</div>
+        <span class="badge">v1.0 · 模块化 · 2D / 3D 可视化</span>
+    </header>
+
+    <main>
+        <div class="grid">
+            <a class="card" href="modules/map-2d/index.html">
+                <h3><span class="dot" style="background:var(--teal)"></span>2D 航班航线地图</h3>
+                <p>Leaflet + 卫星影像，多航线下拉切换（LIS→佛得角 / CAN→LIS），实时大圆航线、地面距离测算，支持飞机沿线飞行动画与航线样式自定义。</p>
+                <div class="tag">Leaflet · Esri 卫星 · 动画 ▶</div>
+            </a>
+            <a class="card teal" href="modules/map-3d/index.html">
+                <h3><span class="dot" style="background:#003154"></span>3D 地球航线演示</h3>
+                <p>Cesium 三维地球，OSM 底图 + 椭球地形，全球大圆航线立体呈现，端点标注机场 IATA / 国家 / 时区，为后续 WebXR VR 漫游预留。</p>
+                <div class="tag">CesiumJS · 3D 地球 · 大圆航线</div>
+            </a>
+            <a class="card gold" href="modules/poi-calc/poi-calc.js">
+                <h3><span class="dot" style="background:var(--accent)"></span>poi-calc 公共算法库</h3>
+                <p>零依赖 ES Module：Haversine 大圆距离 + 大圆航线采样，2D / 3D 共用同一套地理算法，后续可迁移到后端 / Cesium 深度复用。</p>
+                <div class="tag">纯函数 · 可复用 · 已测试 ✓</div>
+            </a>
+        </div>
+
+        <div class="status">
+            ⚠️ 提示：本仓库页面使用 ES Module 加载公共库与 <code>data/routes.json</code>，请用本地静态服务器访问（双击打开将因 CORS 失效）。
+            <br>本地运行：<code>python -m http.server 8000</code> → 浏览器打开 <code>http://127.0.0.1:8000/</code>
+        </div>
+    </main>
+
+    <footer>GTV-hub · Global Trip &amp; Visa Hub · MIT License</footer>
+</body>
+</html>

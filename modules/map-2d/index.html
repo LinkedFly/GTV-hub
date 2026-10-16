@@ -36,15 +36,12 @@
 </head>
 <body>
     <div class="info-bar">
-        <span>佛得角酒店 ↔ 古城直线距离：<span id="distance">--</span> km</span>
+        <span>酒店 ↔ 古城直线距离：<span id="distance">--</span> km</span>
         <span>大圆航班距离：<span id="flightDist">--</span> km</span>
     </div>
     <div class="control-panel">
         <label>航线选择
-            <select id="routeSelect">
-                <option value="LIS-CV">LIS里斯本 → CV佛得角</option>
-                <option value="CAN-LIS">CAN广州 → LIS里斯本</option>
-            </select>
+            <select id="routeSelect"></select>
         </label>
         <label>航线颜色
             <select id="colorSelect">
@@ -66,29 +63,8 @@
     <script type="module">
         import { calcDistance, greatCirclePoints } from '../poi-calc/poi-calc.js';
 
-        // ===================== 航线配置表 =====================
-        const routeConfig = {
-            "LIS-CV": {
-                name: "LIS里斯本 → CV佛得角",
-                dep: [38.7223, -9.1393],
-                arr: [14.9168, -23.5082],
-                view: [26, -16],
-                zoom: 4
-            },
-            "CAN-LIS": {
-                name: "CAN广州 → LIS里斯本",
-                dep: [23.3923, 113.2988],
-                arr: [38.7223, -9.1393],
-                view: [32, 10],
-                zoom: 3
-            }
-        };
-
-        // 佛得角本地点位
-        const hotelLat = 14.9168;
-        const hotelLng = -23.5082;
-        const unescoLat = 14.9117;
-        const unescoLng = -23.6044;
+        // 航线 / POI 配置统一从 data/routes.json 读取（2D / 3D 共用）
+        const config = await (await fetch('../../data/routes.json')).json();
 
         const map = L.map('map').setView([26, -16], 4);
 
@@ -98,26 +74,44 @@
             maxZoom: 19
         }).addTo(map);
 
-        // 本地 POI 标记
-        L.marker([hotelLat, hotelLng]).addTo(map)
-            .bindPopup("<b>InterContinental Cape Verde</b><br>Hotel POI");
-        L.marker([unescoLat, unescoLng]).addTo(map)
-            .bindPopup("<b>UNESCO: Cidade Velha</b>");
-        L.polyline([[hotelLat, hotelLng],[unescoLat, unescoLng]], {color:"#D20A14", weight:3}).addTo(map);
-        document.getElementById("distance").innerText =
-            calcDistance(hotelLat, hotelLng, unescoLat, unescoLng);
+        // 生成地点弹窗文案（机场含 IATA，均含国家与时区）
+        function placePopup(p) {
+            const iata = p.iata ? `<b>${p.iata} ${p.city}</b>` : `<b>${p.city}</b>`;
+            const country = p.country ? `<br>国家：${p.country}` : '';
+            const tz = p.tz ? `<br>时区：${p.tz}` : '';
+            return iata + country + tz;
+        }
+
+        // 绘制 POI（酒店 / UNESCO）
+        for (const poi of Object.values(config.pois)) {
+            L.marker([poi.lat, poi.lon]).addTo(map).bindPopup(
+                `<b>${poi.name}</b><br>类型：${poi.type}${poi.country ? `<br>国家：${poi.country}` : ''}`
+            );
+        }
+
+        // 酒店 ↔ 古城直线距离
+        const poiVals = Object.values(config.pois);
+        if (poiVals.length >= 2) {
+            const a = poiVals[0], b = poiVals[1];
+            L.polyline([[a.lat, a.lon],[b.lat, b.lon]], {color:"#D20A14", weight:3}).addTo(map);
+            document.getElementById("distance").innerText =
+                calcDistance(a.lat, a.lon, b.lat, b.lon);
+        }
+
+        // 航线下拉由配置生成
+        const routeSelect = document.getElementById("routeSelect");
+        for (const key of Object.keys(config.routes)) {
+            const opt = document.createElement("option");
+            opt.value = key;
+            opt.textContent = config.routes[key].name;
+            routeSelect.appendChild(opt);
+        }
 
         // 航线图层状态
-        let flightLine = null;
-        let markerDep = null;
-        let markerArr = null;
-        let flightPoints = [];
-        let planeMarker = null;
-        let animTimer = null;
+        let flightLine = null, markerDep = null, markerArr = null;
+        let flightPoints = [], planeMarker = null, animTimer = null;
 
-        // 渲染指定航线
         function renderRoute(routeKey) {
-            // 清理旧图层与动画
             if (flightLine) map.removeLayer(flightLine);
             if (markerDep) map.removeLayer(markerDep);
             if (markerArr) map.removeLayer(markerArr);
@@ -125,28 +119,27 @@
             if (animTimer) { clearInterval(animTimer); animTimer = null; }
             planeMarker = null;
 
-            const r = routeConfig[routeKey];
-            const [depLat, depLng] = r.dep;
-            const [arrLat, arrLng] = r.arr;
+            const r = config.routes[routeKey];
+            const dep = r.dep, arr = r.arr;
 
-            flightPoints = greatCirclePoints(depLat, depLng, arrLat, arrLng, 60);
+            flightPoints = greatCirclePoints(dep.lat, dep.lon, arr.lat, arr.lon, 60);
             const color = document.getElementById("colorSelect").value;
             const w = Number(document.getElementById("weightInput").value);
             flightLine = L.polyline(flightPoints, {color, weight:w, dashArray:"8,6"}).addTo(map);
 
-            const [depName, arrName] = r.name.split("→").map(s => s.trim());
-            markerDep = L.marker([depLat, depLng]).addTo(map).bindPopup(`<b>Departure</b><br>${depName}`);
-            markerArr = L.marker([arrLat, arrLng]).addTo(map).bindPopup(`<b>Arrival</b><br>${arrName}`);
+            markerDep = L.marker([dep.lat, dep.lon]).addTo(map).bindPopup(
+                `<b>Departure</b><br>${placePopup(dep)}`
+            );
+            markerArr = L.marker([arr.lat, arr.lon]).addTo(map).bindPopup(
+                `<b>Arrival</b><br>${placePopup(arr)}`
+            );
 
             document.getElementById("flightDist").innerText =
-                calcDistance(depLat, depLng, arrLat, arrLng);
+                calcDistance(dep.lat, dep.lon, arr.lat, arr.lon);
             map.setView(r.view, r.zoom);
         }
 
-        // 事件绑定
-        document.getElementById("routeSelect").onchange = () => {
-            renderRoute(document.getElementById("routeSelect").value);
-        };
+        routeSelect.onchange = () => renderRoute(routeSelect.value);
 
         document.getElementById("updateLineBtn").onclick = () => {
             const color = document.getElementById("colorSelect").value;
@@ -177,12 +170,12 @@
         };
 
         document.getElementById("resetViewBtn").onclick = () => {
-            const r = routeConfig[document.getElementById("routeSelect").value];
+            const r = config.routes[routeSelect.value];
             map.setView(r.view, r.zoom);
         };
 
         // 默认加载第一条航线
-        renderRoute("LIS-CV");
+        renderRoute(routeSelect.value);
     </script>
 </body>
 </html>

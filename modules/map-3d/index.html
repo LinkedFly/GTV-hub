@@ -13,17 +13,25 @@
         #cesiumContainer { width:100%; height:100%; }
         .info-badge {
             position:absolute; top:12px; left:12px; z-index:10;
-            background:#003154; color:#fff; padding:6px 12px;
+            background:#003154; color:#fff; padding:8px 14px;
             border-radius:4px; font-family:system-ui,sans-serif; font-size:13px;
+            max-width:360px; line-height:1.5;
         }
     </style>
 </head>
 <body>
-    <div class="info-badge" id="flightInfo">大圆航线距离：计算中…</div>
+    <div class="info-badge" id="flightInfo">加载中…</div>
     <div id="cesiumContainer"></div>
 
     <script type="module">
         import { calcDistance, greatCirclePoints } from '../poi-calc/poi-calc.js';
+
+        // 航线 / POI 配置统一从 data/routes.json 读取（2D / 3D 共用）
+        const config = await (await fetch('../../data/routes.json')).json();
+        // 3D 演示默认使用第一条航线
+        const route = Object.values(config.routes)[0];
+        const dep = route.dep, arr = route.arr;
+        const flightAlt = 500000; // 航线离地高度（米），视觉分层
 
         // 关闭 Ion 默认 token，改用 OSM 底图 + 椭球地形（无需账号）
         Cesium.Ion.defaultAccessToken = '';
@@ -43,13 +51,8 @@
         });
         viewer.scene.globe.enableLighting = true;
 
-        // 航线：LIS 里斯本 → 佛得角
-        const depLat = 38.7223, depLng = -9.1393;
-        const arrLat = 14.9168, arrLng = -23.5082;
-        const flightAlt = 500000; // 航线离地高度（米），视觉分层
-
         // 复用 poi-calc 生成大圆航线采样点
-        const pts = greatCirclePoints(depLat, depLng, arrLat, arrLng, 80);
+        const pts = greatCirclePoints(dep.lat, dep.lon, arr.lat, arr.lon, 80);
         const positions = pts.map(p =>
             Cesium.Cartesian3.fromDegrees(p[1], p[0], flightAlt)
         );
@@ -65,33 +68,48 @@
             }
         });
 
-        // 起止点标记
+        // 标注标签（含 IATA / 国家 / 时区）
+        function labelText(p, prefix) {
+            const iata = p.iata ? ` ${p.iata}` : '';
+            const country = p.country ? `\n${p.country}` : '';
+            const tz = p.tz ? `\n${p.tz}` : '';
+            return `${prefix}${iata}\n${p.city}${country}${tz}`;
+        }
+
         viewer.entities.add({
-            position: Cesium.Cartesian3.fromDegrees(depLng, depLat),
+            position: Cesium.Cartesian3.fromDegrees(dep.lon, dep.lat),
             point: { pixelSize: 10, color: Cesium.Color.ORANGE },
             label: {
-                text: 'LIS 里斯本', font: '14px sans-serif',
-                pixelOffset: new Cesium.Cartesian2(0, -20),
-                fillColor: Cesium.Color.WHITE
+                text: labelText(dep, '起飞机场'),
+                font: '14px sans-serif',
+                pixelOffset: new Cesium.Cartesian2(0, -24),
+                fillColor: Cesium.Color.WHITE,
+                outlineColor: Cesium.Color.BLACK,
+                outlineWidth: 3
             }
         });
         viewer.entities.add({
-            position: Cesium.Cartesian3.fromDegrees(arrLng, arrLat),
+            position: Cesium.Cartesian3.fromDegrees(arr.lon, arr.lat),
             point: { pixelSize: 10, color: Cesium.Color.TEAL },
             label: {
-                text: '佛得角', font: '14px sans-serif',
-                pixelOffset: new Cesium.Cartesian2(0, -20),
-                fillColor: Cesium.Color.WHITE
+                text: labelText(arr, '到达'),
+                font: '14px sans-serif',
+                pixelOffset: new Cesium.Cartesian2(0, -24),
+                fillColor: Cesium.Color.WHITE,
+                outlineColor: Cesium.Color.BLACK,
+                outlineWidth: 3
             }
         });
 
-        // 显示距离
-        const dist = calcDistance(depLat, depLng, arrLat, arrLng);
-        document.getElementById("flightInfo").innerText = `大圆航线距离：${dist} km`;
+        // 信息栏：航线名 + 大圆距离
+        const dist = calcDistance(dep.lat, dep.lon, arr.lat, arr.lon);
+        document.getElementById("flightInfo").innerHTML =
+            `<b>${route.name}</b><br>大圆航线距离：${dist} km` +
+            `<br>${dep.city}（${dep.country}） → ${arr.city}（${arr.country}）`;
 
         // 视角定位到航线
         viewer.camera.flyTo({
-            destination: Cesium.Cartesian3.fromDegrees(-16, 26, 14000000)
+            destination: Cesium.Cartesian3.fromDegrees(route.view[1], route.view[0], 14000000)
         });
     </script>
 </body>
