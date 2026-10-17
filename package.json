@@ -1,0 +1,8 @@
+{
+  "name": "gtv-hub",
+  "version": "1.0.0",
+  "description": "Global Trip & Visa Hub - 全球商旅行程智能规划平台",
+  "type": "module",
+  "private": true,
+  "license": "MIT"
+}

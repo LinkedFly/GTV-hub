@@ -1,60 +1,2010 @@
 {
   "_meta": {
-    "source": "联合国国家基础数据集（CC0，按需扩充，当前为演示子集）",
-    "description": "国家/地区元数据：ISO 3166-1 编码、中英文名、大洲、IANA 时区、ISO 4217 货币",
+    "source": "ISO 3166 (mledoze/countries) + IANA (moment-timezone) + GTV-hub curated 51",
+    "description": "国家元数据全量（ISO alpha-2/3、中文/英文名、大洲、IANA 时区、ISO4217 货币）",
+    "count": 250,
     "updated": "2026-10-17"
   },
   "countries": {
-    "CN": { "alpha3": "CHN", "name_zh": "中国", "name_en": "China", "continent": "亚洲", "tz": "Asia/Shanghai", "currency": "CNY" },
-    "HK": { "alpha3": "HKG", "name_zh": "中国香港", "name_en": "Hong Kong", "continent": "亚洲", "tz": "Asia/Hong_Kong", "currency": "HKD" },
-    "MO": { "alpha3": "MAC", "name_zh": "中国澳门", "name_en": "Macao", "continent": "亚洲", "tz": "Asia/Macau", "currency": "MOP" },
-    "TW": { "alpha3": "TWN", "name_zh": "中国台湾", "name_en": "Taiwan", "continent": "亚洲", "tz": "Asia/Taipei", "currency": "TWD" },
-    "JP": { "alpha3": "JPN", "name_zh": "日本", "name_en": "Japan", "continent": "亚洲", "tz": "Asia/Tokyo", "currency": "JPY" },
-    "KR": { "alpha3": "KOR", "name_zh": "韩国", "name_en": "South Korea", "continent": "亚洲", "tz": "Asia/Seoul", "currency": "KRW" },
-    "SG": { "alpha3": "SGP", "name_zh": "新加坡", "name_en": "Singapore", "continent": "亚洲", "tz": "Asia/Singapore", "currency": "SGD" },
-    "MY": { "alpha3": "MYS", "name_zh": "马来西亚", "name_en": "Malaysia", "continent": "亚洲", "tz": "Asia/Kuala_Lumpur", "currency": "MYR" },
-    "TH": { "alpha3": "THA", "name_zh": "泰国", "name_en": "Thailand", "continent": "亚洲", "tz": "Asia/Bangkok", "currency": "THB" },
-    "VN": { "alpha3": "VNM", "name_zh": "越南", "name_en": "Vietnam", "continent": "亚洲", "tz": "Asia/Ho_Chi_Minh", "currency": "VND" },
-    "IN": { "alpha3": "IND", "name_zh": "印度", "name_en": "India", "continent": "亚洲", "tz": "Asia/Kolkata", "currency": "INR" },
-    "ID": { "alpha3": "IDN", "name_zh": "印度尼西亚", "name_en": "Indonesia", "continent": "亚洲", "tz": "Asia/Jakarta", "currency": "IDR" },
-    "PH": { "alpha3": "PHL", "name_zh": "菲律宾", "name_en": "Philippines", "continent": "亚洲", "tz": "Asia/Manila", "currency": "PHP" },
-    "AE": { "alpha3": "ARE", "name_zh": "阿联酋", "name_en": "United Arab Emirates", "continent": "亚洲", "tz": "Asia/Dubai", "currency": "AED" },
-    "SA": { "alpha3": "SAU", "name_zh": "沙特阿拉伯", "name_en": "Saudi Arabia", "continent": "亚洲", "tz": "Asia/Riyadh", "currency": "SAR" },
-    "QA": { "alpha3": "QAT", "name_zh": "卡塔尔", "name_en": "Qatar", "continent": "亚洲", "tz": "Asia/Qatar", "currency": "QAR" },
-    "IL": { "alpha3": "ISR", "name_zh": "以色列", "name_en": "Israel", "continent": "亚洲", "tz": "Asia/Jerusalem", "currency": "ILS" },
-    "TR": { "alpha3": "TUR", "name_zh": "土耳其", "name_en": "Turkey", "continent": "亚洲", "tz": "Europe/Istanbul", "currency": "TRY" },
-    "RU": { "alpha3": "RUS", "name_zh": "俄罗斯", "name_en": "Russia", "continent": "欧洲", "tz": "Europe/Moscow", "currency": "RUB" },
-    "PT": { "alpha3": "PRT", "name_zh": "葡萄牙", "name_en": "Portugal", "continent": "欧洲", "tz": "Europe/Lisbon", "currency": "EUR" },
-    "CV": { "alpha3": "CPV", "name_zh": "佛得角", "name_en": "Cape Verde", "continent": "非洲", "tz": "Atlantic/Cape_Verde", "currency": "CVE" },
-    "FR": { "alpha3": "FRA", "name_zh": "法国", "name_en": "France", "continent": "欧洲", "tz": "Europe/Paris", "currency": "EUR" },
-    "DE": { "alpha3": "DEU", "name_zh": "德国", "name_en": "Germany", "continent": "欧洲", "tz": "Europe/Berlin", "currency": "EUR" },
-    "IT": { "alpha3": "ITA", "name_zh": "意大利", "name_en": "Italy", "continent": "欧洲", "tz": "Europe/Rome", "currency": "EUR" },
-    "ES": { "alpha3": "ESP", "name_zh": "西班牙", "name_en": "Spain", "continent": "欧洲", "tz": "Europe/Madrid", "currency": "EUR" },
-    "NL": { "alpha3": "NLD", "name_zh": "荷兰", "name_en": "Netherlands", "continent": "欧洲", "tz": "Europe/Amsterdam", "currency": "EUR" },
-    "BE": { "alpha3": "BEL", "name_zh": "比利时", "name_en": "Belgium", "continent": "欧洲", "tz": "Europe/Brussels", "currency": "EUR" },
-    "CH": { "alpha3": "CHE", "name_zh": "瑞士", "name_en": "Switzerland", "continent": "欧洲", "tz": "Europe/Zurich", "currency": "CHF" },
-    "AT": { "alpha3": "AUT", "name_zh": "奥地利", "name_en": "Austria", "continent": "欧洲", "tz": "Europe/Vienna", "currency": "EUR" },
-    "SE": { "alpha3": "SWE", "name_zh": "瑞典", "name_en": "Sweden", "continent": "欧洲", "tz": "Europe/Stockholm", "currency": "SEK" },
-    "DK": { "alpha3": "DNK", "name_zh": "丹麦", "name_en": "Denmark", "continent": "欧洲", "tz": "Europe/Copenhagen", "currency": "DKK" },
-    "FI": { "alpha3": "FIN", "name_zh": "芬兰", "name_en": "Finland", "continent": "欧洲", "tz": "Europe/Helsinki", "currency": "EUR" },
-    "NO": { "alpha3": "NOR", "name_zh": "挪威", "name_en": "Norway", "continent": "欧洲", "tz": "Europe/Oslo", "currency": "NOK" },
-    "PL": { "alpha3": "POL", "name_zh": "波兰", "name_en": "Poland", "continent": "欧洲", "tz": "Europe/Warsaw", "currency": "PLN" },
-    "CZ": { "alpha3": "CZE", "name_zh": "捷克", "name_en": "Czechia", "continent": "欧洲", "tz": "Europe/Prague", "currency": "CZK" },
-    "GR": { "alpha3": "GRC", "name_zh": "希腊", "name_en": "Greece", "continent": "欧洲", "tz": "Europe/Athens", "currency": "EUR" },
-    "IE": { "alpha3": "IRL", "name_zh": "爱尔兰", "name_en": "Ireland", "continent": "欧洲", "tz": "Europe/Dublin", "currency": "EUR" },
-    "GB": { "alpha3": "GBR", "name_zh": "英国", "name_en": "United Kingdom", "continent": "欧洲", "tz": "Europe/London", "currency": "GBP" },
-    "US": { "alpha3": "USA", "name_zh": "美国", "name_en": "United States", "continent": "北美洲", "tz": "America/New_York", "currency": "USD" },
-    "CA": { "alpha3": "CAN", "name_zh": "加拿大", "name_en": "Canada", "continent": "北美洲", "tz": "America/Toronto", "currency": "CAD" },
-    "MX": { "alpha3": "MEX", "name_zh": "墨西哥", "name_en": "Mexico", "continent": "北美洲", "tz": "America/Mexico_City", "currency": "MXN" },
-    "BR": { "alpha3": "BRA", "name_zh": "巴西", "name_en": "Brazil", "continent": "南美洲", "tz": "America/Sao_Paulo", "currency": "BRL" },
-    "AR": { "alpha3": "ARG", "name_zh": "阿根廷", "name_en": "Argentina", "continent": "南美洲", "tz": "America/Argentina/Buenos_Aires", "currency": "ARS" },
-    "AU": { "alpha3": "AUS", "name_zh": "澳大利亚", "name_en": "Australia", "continent": "大洋洲", "tz": "Australia/Sydney", "currency": "AUD" },
-    "NZ": { "alpha3": "NZL", "name_zh": "新西兰", "name_en": "New Zealand", "continent": "大洋洲", "tz": "Pacific/Auckland", "currency": "NZD" },
-    "EG": { "alpha3": "EGY", "name_zh": "埃及", "name_en": "Egypt", "continent": "非洲", "tz": "Africa/Cairo", "currency": "EGP" },
-    "ZA": { "alpha3": "ZAF", "name_zh": "南非", "name_en": "South Africa", "continent": "非洲", "tz": "Africa/Johannesburg", "currency": "ZAR" },
-    "KE": { "alpha3": "KEN", "name_zh": "肯尼亚", "name_en": "Kenya", "continent": "非洲", "tz": "Africa/Nairobi", "currency": "KES" },
-    "ET": { "alpha3": "ETH", "name_zh": "埃塞俄比亚", "name_en": "Ethiopia", "continent": "非洲", "tz": "Africa/Addis_Ababa", "currency": "ETB" },
-    "NG": { "alpha3": "NGA", "name_zh": "尼日利亚", "name_en": "Nigeria", "continent": "非洲", "tz": "Africa/Lagos", "currency": "NGN" },
-    "MA": { "alpha3": "MAR", "name_zh": "摩洛哥", "name_en": "Morocco", "continent": "非洲", "tz": "Africa/Casablanca", "currency": "MAD" }
+    "AD": {
+      "alpha3": "AND",
+      "name_zh": "安道尔",
+      "name_en": "Andorra",
+      "continent": "欧洲",
+      "tz": "Europe/Andorra",
+      "currency": "EUR"
+    },
+    "AE": {
+      "alpha3": "ARE",
+      "name_zh": "阿联酋",
+      "name_en": "United Arab Emirates",
+      "continent": "亚洲",
+      "tz": "Asia/Dubai",
+      "currency": "AED"
+    },
+    "AF": {
+      "alpha3": "AFG",
+      "name_zh": "阿富汗",
+      "name_en": "Afghanistan",
+      "continent": "亚洲",
+      "tz": "Asia/Kabul",
+      "currency": "AFN"
+    },
+    "AG": {
+      "alpha3": "ATG",
+      "name_zh": "安提瓜和巴布达",
+      "name_en": "Antigua and Barbuda",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "XCD"
+    },
+    "AI": {
+      "alpha3": "AIA",
+      "name_zh": "安圭拉",
+      "name_en": "Anguilla",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "XCD"
+    },
+    "AL": {
+      "alpha3": "ALB",
+      "name_zh": "阿尔巴尼亚",
+      "name_en": "Albania",
+      "continent": "欧洲",
+      "tz": "Europe/Tirane",
+      "currency": "ALL"
+    },
+    "AM": {
+      "alpha3": "ARM",
+      "name_zh": "亚美尼亚",
+      "name_en": "Armenia",
+      "continent": "亚洲",
+      "tz": "Asia/Yerevan",
+      "currency": "AMD"
+    },
+    "AO": {
+      "alpha3": "AGO",
+      "name_zh": "安哥拉",
+      "name_en": "Angola",
+      "continent": "非洲",
+      "tz": "Africa/Lagos",
+      "currency": "AOA"
+    },
+    "AQ": {
+      "alpha3": "ATA",
+      "name_zh": "南极洲",
+      "name_en": "Antarctica",
+      "continent": "",
+      "tz": "Antarctica/Casey",
+      "currency": null
+    },
+    "AR": {
+      "alpha3": "ARG",
+      "name_zh": "阿根廷",
+      "name_en": "Argentina",
+      "continent": "南美洲",
+      "tz": "America/Argentina/Buenos_Aires",
+      "currency": "ARS"
+    },
+    "AS": {
+      "alpha3": "ASM",
+      "name_zh": "美属萨摩亚",
+      "name_en": "American Samoa",
+      "continent": "大洋洲",
+      "tz": "Pacific/Pago_Pago",
+      "currency": "USD"
+    },
+    "AT": {
+      "alpha3": "AUT",
+      "name_zh": "奥地利",
+      "name_en": "Austria",
+      "continent": "欧洲",
+      "tz": "Europe/Vienna",
+      "currency": "EUR"
+    },
+    "AU": {
+      "alpha3": "AUS",
+      "name_zh": "澳大利亚",
+      "name_en": "Australia",
+      "continent": "大洋洲",
+      "tz": "Australia/Sydney",
+      "currency": "AUD"
+    },
+    "AW": {
+      "alpha3": "ABW",
+      "name_zh": "阿鲁巴",
+      "name_en": "Aruba",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "AWG"
+    },
+    "AX": {
+      "alpha3": "ALA",
+      "name_zh": "奥兰群岛",
+      "name_en": "Åland Islands",
+      "continent": "欧洲",
+      "tz": "Europe/Helsinki",
+      "currency": "EUR"
+    },
+    "AZ": {
+      "alpha3": "AZE",
+      "name_zh": "阿塞拜疆",
+      "name_en": "Azerbaijan",
+      "continent": "亚洲",
+      "tz": "Asia/Baku",
+      "currency": "AZN"
+    },
+    "BA": {
+      "alpha3": "BIH",
+      "name_zh": "波斯尼亚和黑塞哥维那",
+      "name_en": "Bosnia and Herzegovina",
+      "continent": "欧洲",
+      "tz": "Europe/Belgrade",
+      "currency": "BAM"
+    },
+    "BB": {
+      "alpha3": "BRB",
+      "name_zh": "巴巴多斯",
+      "name_en": "Barbados",
+      "continent": "美洲",
+      "tz": "America/Barbados",
+      "currency": "BBD"
+    },
+    "BD": {
+      "alpha3": "BGD",
+      "name_zh": "孟加拉国",
+      "name_en": "Bangladesh",
+      "continent": "亚洲",
+      "tz": "Asia/Dhaka",
+      "currency": "BDT"
+    },
+    "BE": {
+      "alpha3": "BEL",
+      "name_zh": "比利时",
+      "name_en": "Belgium",
+      "continent": "欧洲",
+      "tz": "Europe/Brussels",
+      "currency": "EUR"
+    },
+    "BF": {
+      "alpha3": "BFA",
+      "name_zh": "布基纳法索",
+      "name_en": "Burkina Faso",
+      "continent": "非洲",
+      "tz": "Africa/Abidjan",
+      "currency": "XOF"
+    },
+    "BG": {
+      "alpha3": "BGR",
+      "name_zh": "保加利亚",
+      "name_en": "Bulgaria",
+      "continent": "欧洲",
+      "tz": "Europe/Sofia",
+      "currency": "EUR"
+    },
+    "BH": {
+      "alpha3": "BHR",
+      "name_zh": "巴林",
+      "name_en": "Bahrain",
+      "continent": "亚洲",
+      "tz": "Asia/Qatar",
+      "currency": "BHD"
+    },
+    "BI": {
+      "alpha3": "BDI",
+      "name_zh": "布隆迪",
+      "name_en": "Burundi",
+      "continent": "非洲",
+      "tz": "Africa/Maputo",
+      "currency": "BIF"
+    },
+    "BJ": {
+      "alpha3": "BEN",
+      "name_zh": "贝宁",
+      "name_en": "Benin",
+      "continent": "非洲",
+      "tz": "Africa/Lagos",
+      "currency": "XOF"
+    },
+    "BL": {
+      "alpha3": "BLM",
+      "name_zh": "圣巴泰勒米",
+      "name_en": "Saint Barthélemy",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "EUR"
+    },
+    "BM": {
+      "alpha3": "BMU",
+      "name_zh": "百慕大",
+      "name_en": "Bermuda",
+      "continent": "美洲",
+      "tz": "Atlantic/Bermuda",
+      "currency": "BMD"
+    },
+    "BN": {
+      "alpha3": "BRN",
+      "name_zh": "文莱",
+      "name_en": "Brunei",
+      "continent": "亚洲",
+      "tz": "Asia/Kuching",
+      "currency": "BND"
+    },
+    "BO": {
+      "alpha3": "BOL",
+      "name_zh": "玻利维亚",
+      "name_en": "Bolivia",
+      "continent": "美洲",
+      "tz": "America/La_Paz",
+      "currency": "BOB"
+    },
+    "BQ": {
+      "alpha3": "BES",
+      "name_zh": "荷蘭加勒比區",
+      "name_en": "Caribbean Netherlands",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "USD"
+    },
+    "BR": {
+      "alpha3": "BRA",
+      "name_zh": "巴西",
+      "name_en": "Brazil",
+      "continent": "南美洲",
+      "tz": "America/Sao_Paulo",
+      "currency": "BRL"
+    },
+    "BS": {
+      "alpha3": "BHS",
+      "name_zh": "巴哈马",
+      "name_en": "Bahamas",
+      "continent": "美洲",
+      "tz": "America/Toronto",
+      "currency": "BSD"
+    },
+    "BT": {
+      "alpha3": "BTN",
+      "name_zh": "不丹",
+      "name_en": "Bhutan",
+      "continent": "亚洲",
+      "tz": "Asia/Thimphu",
+      "currency": "BTN"
+    },
+    "BV": {
+      "alpha3": "BVT",
+      "name_zh": "布维岛",
+      "name_en": "Bouvet Island",
+      "continent": "",
+      "tz": "",
+      "currency": null
+    },
+    "BW": {
+      "alpha3": "BWA",
+      "name_zh": "博茨瓦纳",
+      "name_en": "Botswana",
+      "continent": "非洲",
+      "tz": "Africa/Maputo",
+      "currency": "BWP"
+    },
+    "BY": {
+      "alpha3": "BLR",
+      "name_zh": "白俄罗斯",
+      "name_en": "Belarus",
+      "continent": "欧洲",
+      "tz": "Europe/Minsk",
+      "currency": "BYN"
+    },
+    "BZ": {
+      "alpha3": "BLZ",
+      "name_zh": "伯利兹",
+      "name_en": "Belize",
+      "continent": "美洲",
+      "tz": "America/Belize",
+      "currency": "BZD"
+    },
+    "CA": {
+      "alpha3": "CAN",
+      "name_zh": "加拿大",
+      "name_en": "Canada",
+      "continent": "北美洲",
+      "tz": "America/Toronto",
+      "currency": "CAD"
+    },
+    "CC": {
+      "alpha3": "CCK",
+      "name_zh": "科科斯",
+      "name_en": "Cocos (Keeling) Islands",
+      "continent": "大洋洲",
+      "tz": "Asia/Yangon",
+      "currency": "AUD"
+    },
+    "CD": {
+      "alpha3": "COD",
+      "name_zh": "民主刚果",
+      "name_en": "DR Congo",
+      "continent": "非洲",
+      "tz": "Africa/Maputo",
+      "currency": "CDF"
+    },
+    "CF": {
+      "alpha3": "CAF",
+      "name_zh": "中非共和国",
+      "name_en": "Central African Republic",
+      "continent": "非洲",
+      "tz": "Africa/Lagos",
+      "currency": "XAF"
+    },
+    "CG": {
+      "alpha3": "COG",
+      "name_zh": "刚果",
+      "name_en": "Congo",
+      "continent": "非洲",
+      "tz": "Africa/Lagos",
+      "currency": "XAF"
+    },
+    "CH": {
+      "alpha3": "CHE",
+      "name_zh": "瑞士",
+      "name_en": "Switzerland",
+      "continent": "欧洲",
+      "tz": "Europe/Zurich",
+      "currency": "CHF"
+    },
+    "CI": {
+      "alpha3": "CIV",
+      "name_zh": "科特迪瓦",
+      "name_en": "Ivory Coast",
+      "continent": "非洲",
+      "tz": "Africa/Abidjan",
+      "currency": "XOF"
+    },
+    "CK": {
+      "alpha3": "COK",
+      "name_zh": "库克群岛",
+      "name_en": "Cook Islands",
+      "continent": "大洋洲",
+      "tz": "Pacific/Rarotonga",
+      "currency": "CKD"
+    },
+    "CL": {
+      "alpha3": "CHL",
+      "name_zh": "智利",
+      "name_en": "Chile",
+      "continent": "美洲",
+      "tz": "America/Santiago",
+      "currency": "CLP"
+    },
+    "CM": {
+      "alpha3": "CMR",
+      "name_zh": "喀麦隆",
+      "name_en": "Cameroon",
+      "continent": "非洲",
+      "tz": "Africa/Lagos",
+      "currency": "XAF"
+    },
+    "CN": {
+      "alpha3": "CHN",
+      "name_zh": "中国",
+      "name_en": "China",
+      "continent": "亚洲",
+      "tz": "Asia/Shanghai",
+      "currency": "CNY"
+    },
+    "CO": {
+      "alpha3": "COL",
+      "name_zh": "哥伦比亚",
+      "name_en": "Colombia",
+      "continent": "美洲",
+      "tz": "America/Bogota",
+      "currency": "COP"
+    },
+    "CR": {
+      "alpha3": "CRI",
+      "name_zh": "哥斯达黎加",
+      "name_en": "Costa Rica",
+      "continent": "美洲",
+      "tz": "America/Costa_Rica",
+      "currency": "CRC"
+    },
+    "CU": {
+      "alpha3": "CUB",
+      "name_zh": "古巴",
+      "name_en": "Cuba",
+      "continent": "美洲",
+      "tz": "America/Havana",
+      "currency": "CUC"
+    },
+    "CV": {
+      "alpha3": "CPV",
+      "name_zh": "佛得角",
+      "name_en": "Cape Verde",
+      "continent": "非洲",
+      "tz": "Atlantic/Cape_Verde",
+      "currency": "CVE"
+    },
+    "CW": {
+      "alpha3": "CUW",
+      "name_zh": "库拉索",
+      "name_en": "Curaçao",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "ANG"
+    },
+    "CX": {
+      "alpha3": "CXR",
+      "name_zh": "圣诞岛",
+      "name_en": "Christmas Island",
+      "continent": "大洋洲",
+      "tz": "Asia/Bangkok",
+      "currency": "AUD"
+    },
+    "CY": {
+      "alpha3": "CYP",
+      "name_zh": "塞浦路斯",
+      "name_en": "Cyprus",
+      "continent": "欧洲",
+      "tz": "Asia/Nicosia",
+      "currency": "EUR"
+    },
+    "CZ": {
+      "alpha3": "CZE",
+      "name_zh": "捷克",
+      "name_en": "Czechia",
+      "continent": "欧洲",
+      "tz": "Europe/Prague",
+      "currency": "CZK"
+    },
+    "DE": {
+      "alpha3": "DEU",
+      "name_zh": "德国",
+      "name_en": "Germany",
+      "continent": "欧洲",
+      "tz": "Europe/Berlin",
+      "currency": "EUR"
+    },
+    "DJ": {
+      "alpha3": "DJI",
+      "name_zh": "吉布提",
+      "name_en": "Djibouti",
+      "continent": "非洲",
+      "tz": "Africa/Nairobi",
+      "currency": "DJF"
+    },
+    "DK": {
+      "alpha3": "DNK",
+      "name_zh": "丹麦",
+      "name_en": "Denmark",
+      "continent": "欧洲",
+      "tz": "Europe/Copenhagen",
+      "currency": "DKK"
+    },
+    "DM": {
+      "alpha3": "DMA",
+      "name_zh": "多米尼加",
+      "name_en": "Dominica",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "XCD"
+    },
+    "DO": {
+      "alpha3": "DOM",
+      "name_zh": "多明尼加",
+      "name_en": "Dominican Republic",
+      "continent": "美洲",
+      "tz": "America/Santo_Domingo",
+      "currency": "DOP"
+    },
+    "DZ": {
+      "alpha3": "DZA",
+      "name_zh": "阿尔及利亚",
+      "name_en": "Algeria",
+      "continent": "非洲",
+      "tz": "Africa/Algiers",
+      "currency": "DZD"
+    },
+    "EC": {
+      "alpha3": "ECU",
+      "name_zh": "厄瓜多尔",
+      "name_en": "Ecuador",
+      "continent": "美洲",
+      "tz": "America/Guayaquil",
+      "currency": "USD"
+    },
+    "EE": {
+      "alpha3": "EST",
+      "name_zh": "爱沙尼亚",
+      "name_en": "Estonia",
+      "continent": "欧洲",
+      "tz": "Europe/Tallinn",
+      "currency": "EUR"
+    },
+    "EG": {
+      "alpha3": "EGY",
+      "name_zh": "埃及",
+      "name_en": "Egypt",
+      "continent": "非洲",
+      "tz": "Africa/Cairo",
+      "currency": "EGP"
+    },
+    "EH": {
+      "alpha3": "ESH",
+      "name_zh": "西撒哈拉",
+      "name_en": "Western Sahara",
+      "continent": "非洲",
+      "tz": "Africa/El_Aaiun",
+      "currency": "DZD"
+    },
+    "ER": {
+      "alpha3": "ERI",
+      "name_zh": "厄立特里亚",
+      "name_en": "Eritrea",
+      "continent": "非洲",
+      "tz": "Africa/Nairobi",
+      "currency": "ERN"
+    },
+    "ES": {
+      "alpha3": "ESP",
+      "name_zh": "西班牙",
+      "name_en": "Spain",
+      "continent": "欧洲",
+      "tz": "Europe/Madrid",
+      "currency": "EUR"
+    },
+    "ET": {
+      "alpha3": "ETH",
+      "name_zh": "埃塞俄比亚",
+      "name_en": "Ethiopia",
+      "continent": "非洲",
+      "tz": "Africa/Addis_Ababa",
+      "currency": "ETB"
+    },
+    "FI": {
+      "alpha3": "FIN",
+      "name_zh": "芬兰",
+      "name_en": "Finland",
+      "continent": "欧洲",
+      "tz": "Europe/Helsinki",
+      "currency": "EUR"
+    },
+    "FJ": {
+      "alpha3": "FJI",
+      "name_zh": "斐济",
+      "name_en": "Fiji",
+      "continent": "大洋洲",
+      "tz": "Pacific/Fiji",
+      "currency": "FJD"
+    },
+    "FK": {
+      "alpha3": "FLK",
+      "name_zh": "福克兰群岛",
+      "name_en": "Falkland Islands",
+      "continent": "美洲",
+      "tz": "Atlantic/Stanley",
+      "currency": "FKP"
+    },
+    "FM": {
+      "alpha3": "FSM",
+      "name_zh": "密克罗尼西亚",
+      "name_en": "Micronesia",
+      "continent": "大洋洲",
+      "tz": "Pacific/Kosrae",
+      "currency": null
+    },
+    "FO": {
+      "alpha3": "FRO",
+      "name_zh": "法罗群岛",
+      "name_en": "Faroe Islands",
+      "continent": "欧洲",
+      "tz": "Atlantic/Faroe",
+      "currency": "DKK"
+    },
+    "FR": {
+      "alpha3": "FRA",
+      "name_zh": "法国",
+      "name_en": "France",
+      "continent": "欧洲",
+      "tz": "Europe/Paris",
+      "currency": "EUR"
+    },
+    "GA": {
+      "alpha3": "GAB",
+      "name_zh": "加蓬",
+      "name_en": "Gabon",
+      "continent": "非洲",
+      "tz": "Africa/Lagos",
+      "currency": "XAF"
+    },
+    "GB": {
+      "alpha3": "GBR",
+      "name_zh": "英国",
+      "name_en": "United Kingdom",
+      "continent": "欧洲",
+      "tz": "Europe/London",
+      "currency": "GBP"
+    },
+    "GD": {
+      "alpha3": "GRD",
+      "name_zh": "格林纳达",
+      "name_en": "Grenada",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "XCD"
+    },
+    "GE": {
+      "alpha3": "GEO",
+      "name_zh": "格鲁吉亚",
+      "name_en": "Georgia",
+      "continent": "亚洲",
+      "tz": "Asia/Tbilisi",
+      "currency": "GEL"
+    },
+    "GF": {
+      "alpha3": "GUF",
+      "name_zh": "法属圭亚那",
+      "name_en": "French Guiana",
+      "continent": "美洲",
+      "tz": "America/Cayenne",
+      "currency": "EUR"
+    },
+    "GG": {
+      "alpha3": "GGY",
+      "name_zh": "根西岛",
+      "name_en": "Guernsey",
+      "continent": "欧洲",
+      "tz": "Europe/London",
+      "currency": "GBP"
+    },
+    "GH": {
+      "alpha3": "GHA",
+      "name_zh": "加纳",
+      "name_en": "Ghana",
+      "continent": "非洲",
+      "tz": "Africa/Abidjan",
+      "currency": "GHS"
+    },
+    "GI": {
+      "alpha3": "GIB",
+      "name_zh": "直布罗陀",
+      "name_en": "Gibraltar",
+      "continent": "欧洲",
+      "tz": "Europe/Gibraltar",
+      "currency": "GIP"
+    },
+    "GL": {
+      "alpha3": "GRL",
+      "name_zh": "格陵兰",
+      "name_en": "Greenland",
+      "continent": "美洲",
+      "tz": "America/Nuuk",
+      "currency": "DKK"
+    },
+    "GM": {
+      "alpha3": "GMB",
+      "name_zh": "冈比亚",
+      "name_en": "Gambia",
+      "continent": "非洲",
+      "tz": "Africa/Abidjan",
+      "currency": "GMD"
+    },
+    "GN": {
+      "alpha3": "GIN",
+      "name_zh": "几内亚",
+      "name_en": "Guinea",
+      "continent": "非洲",
+      "tz": "Africa/Abidjan",
+      "currency": "GNF"
+    },
+    "GP": {
+      "alpha3": "GLP",
+      "name_zh": "瓜德罗普岛",
+      "name_en": "Guadeloupe",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "EUR"
+    },
+    "GQ": {
+      "alpha3": "GNQ",
+      "name_zh": "赤道几内亚",
+      "name_en": "Equatorial Guinea",
+      "continent": "非洲",
+      "tz": "Africa/Lagos",
+      "currency": "XAF"
+    },
+    "GR": {
+      "alpha3": "GRC",
+      "name_zh": "希腊",
+      "name_en": "Greece",
+      "continent": "欧洲",
+      "tz": "Europe/Athens",
+      "currency": "EUR"
+    },
+    "GS": {
+      "alpha3": "SGS",
+      "name_zh": "南乔治亚",
+      "name_en": "South Georgia",
+      "continent": "",
+      "tz": "Atlantic/South_Georgia",
+      "currency": "SHP"
+    },
+    "GT": {
+      "alpha3": "GTM",
+      "name_zh": "危地马拉",
+      "name_en": "Guatemala",
+      "continent": "美洲",
+      "tz": "America/Guatemala",
+      "currency": "GTQ"
+    },
+    "GU": {
+      "alpha3": "GUM",
+      "name_zh": "关岛",
+      "name_en": "Guam",
+      "continent": "大洋洲",
+      "tz": "Pacific/Guam",
+      "currency": "USD"
+    },
+    "GW": {
+      "alpha3": "GNB",
+      "name_zh": "几内亚比绍",
+      "name_en": "Guinea-Bissau",
+      "continent": "非洲",
+      "tz": "Africa/Bissau",
+      "currency": "XOF"
+    },
+    "GY": {
+      "alpha3": "GUY",
+      "name_zh": "圭亚那",
+      "name_en": "Guyana",
+      "continent": "美洲",
+      "tz": "America/Guyana",
+      "currency": "GYD"
+    },
+    "HK": {
+      "alpha3": "HKG",
+      "name_zh": "中国香港",
+      "name_en": "Hong Kong",
+      "continent": "亚洲",
+      "tz": "Asia/Hong_Kong",
+      "currency": "HKD"
+    },
+    "HM": {
+      "alpha3": "HMD",
+      "name_zh": "赫德岛和麦当劳群岛",
+      "name_en": "Heard Island and McDonald Islands",
+      "continent": "",
+      "tz": "",
+      "currency": null
+    },
+    "HN": {
+      "alpha3": "HND",
+      "name_zh": "洪都拉斯",
+      "name_en": "Honduras",
+      "continent": "美洲",
+      "tz": "America/Tegucigalpa",
+      "currency": "HNL"
+    },
+    "HR": {
+      "alpha3": "HRV",
+      "name_zh": "克罗地亚",
+      "name_en": "Croatia",
+      "continent": "欧洲",
+      "tz": "Europe/Belgrade",
+      "currency": "EUR"
+    },
+    "HT": {
+      "alpha3": "HTI",
+      "name_zh": "海地",
+      "name_en": "Haiti",
+      "continent": "美洲",
+      "tz": "America/Port-au-Prince",
+      "currency": "HTG"
+    },
+    "HU": {
+      "alpha3": "HUN",
+      "name_zh": "匈牙利",
+      "name_en": "Hungary",
+      "continent": "欧洲",
+      "tz": "Europe/Budapest",
+      "currency": "HUF"
+    },
+    "ID": {
+      "alpha3": "IDN",
+      "name_zh": "印度尼西亚",
+      "name_en": "Indonesia",
+      "continent": "亚洲",
+      "tz": "Asia/Jakarta",
+      "currency": "IDR"
+    },
+    "IE": {
+      "alpha3": "IRL",
+      "name_zh": "爱尔兰",
+      "name_en": "Ireland",
+      "continent": "欧洲",
+      "tz": "Europe/Dublin",
+      "currency": "EUR"
+    },
+    "IL": {
+      "alpha3": "ISR",
+      "name_zh": "以色列",
+      "name_en": "Israel",
+      "continent": "亚洲",
+      "tz": "Asia/Jerusalem",
+      "currency": "ILS"
+    },
+    "IM": {
+      "alpha3": "IMN",
+      "name_zh": "马恩岛",
+      "name_en": "Isle of Man",
+      "continent": "欧洲",
+      "tz": "Europe/London",
+      "currency": "GBP"
+    },
+    "IN": {
+      "alpha3": "IND",
+      "name_zh": "印度",
+      "name_en": "India",
+      "continent": "亚洲",
+      "tz": "Asia/Kolkata",
+      "currency": "INR"
+    },
+    "IO": {
+      "alpha3": "IOT",
+      "name_zh": "英属印度洋领地",
+      "name_en": "British Indian Ocean Territory",
+      "continent": "非洲",
+      "tz": "Indian/Chagos",
+      "currency": "USD"
+    },
+    "IQ": {
+      "alpha3": "IRQ",
+      "name_zh": "伊拉克",
+      "name_en": "Iraq",
+      "continent": "亚洲",
+      "tz": "Asia/Baghdad",
+      "currency": "IQD"
+    },
+    "IR": {
+      "alpha3": "IRN",
+      "name_zh": "伊朗",
+      "name_en": "Iran",
+      "continent": "亚洲",
+      "tz": "Asia/Tehran",
+      "currency": "IRR"
+    },
+    "IS": {
+      "alpha3": "ISL",
+      "name_zh": "冰岛",
+      "name_en": "Iceland",
+      "continent": "欧洲",
+      "tz": "Africa/Abidjan",
+      "currency": "ISK"
+    },
+    "IT": {
+      "alpha3": "ITA",
+      "name_zh": "意大利",
+      "name_en": "Italy",
+      "continent": "欧洲",
+      "tz": "Europe/Rome",
+      "currency": "EUR"
+    },
+    "JE": {
+      "alpha3": "JEY",
+      "name_zh": "泽西岛",
+      "name_en": "Jersey",
+      "continent": "欧洲",
+      "tz": "Europe/London",
+      "currency": "GBP"
+    },
+    "JM": {
+      "alpha3": "JAM",
+      "name_zh": "牙买加",
+      "name_en": "Jamaica",
+      "continent": "美洲",
+      "tz": "America/Jamaica",
+      "currency": "JMD"
+    },
+    "JO": {
+      "alpha3": "JOR",
+      "name_zh": "约旦",
+      "name_en": "Jordan",
+      "continent": "亚洲",
+      "tz": "Asia/Amman",
+      "currency": "JOD"
+    },
+    "JP": {
+      "alpha3": "JPN",
+      "name_zh": "日本",
+      "name_en": "Japan",
+      "continent": "亚洲",
+      "tz": "Asia/Tokyo",
+      "currency": "JPY"
+    },
+    "KE": {
+      "alpha3": "KEN",
+      "name_zh": "肯尼亚",
+      "name_en": "Kenya",
+      "continent": "非洲",
+      "tz": "Africa/Nairobi",
+      "currency": "KES"
+    },
+    "KG": {
+      "alpha3": "KGZ",
+      "name_zh": "吉尔吉斯斯坦",
+      "name_en": "Kyrgyzstan",
+      "continent": "亚洲",
+      "tz": "Asia/Bishkek",
+      "currency": "KGS"
+    },
+    "KH": {
+      "alpha3": "KHM",
+      "name_zh": "柬埔寨",
+      "name_en": "Cambodia",
+      "continent": "亚洲",
+      "tz": "Asia/Bangkok",
+      "currency": "KHR"
+    },
+    "KI": {
+      "alpha3": "KIR",
+      "name_zh": "基里巴斯",
+      "name_en": "Kiribati",
+      "continent": "大洋洲",
+      "tz": "Pacific/Tarawa",
+      "currency": "AUD"
+    },
+    "KM": {
+      "alpha3": "COM",
+      "name_zh": "科摩罗",
+      "name_en": "Comoros",
+      "continent": "非洲",
+      "tz": "Africa/Nairobi",
+      "currency": "KMF"
+    },
+    "KN": {
+      "alpha3": "KNA",
+      "name_zh": "圣基茨和尼维斯",
+      "name_en": "Saint Kitts and Nevis",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "XCD"
+    },
+    "KP": {
+      "alpha3": "PRK",
+      "name_zh": "朝鲜",
+      "name_en": "North Korea",
+      "continent": "亚洲",
+      "tz": "Asia/Pyongyang",
+      "currency": "KPW"
+    },
+    "KR": {
+      "alpha3": "KOR",
+      "name_zh": "韩国",
+      "name_en": "South Korea",
+      "continent": "亚洲",
+      "tz": "Asia/Seoul",
+      "currency": "KRW"
+    },
+    "KW": {
+      "alpha3": "KWT",
+      "name_zh": "科威特",
+      "name_en": "Kuwait",
+      "continent": "亚洲",
+      "tz": "Asia/Riyadh",
+      "currency": "KWD"
+    },
+    "KY": {
+      "alpha3": "CYM",
+      "name_zh": "开曼群岛",
+      "name_en": "Cayman Islands",
+      "continent": "美洲",
+      "tz": "America/Panama",
+      "currency": "KYD"
+    },
+    "KZ": {
+      "alpha3": "KAZ",
+      "name_zh": "哈萨克斯坦",
+      "name_en": "Kazakhstan",
+      "continent": "亚洲",
+      "tz": "Asia/Almaty",
+      "currency": "KZT"
+    },
+    "LA": {
+      "alpha3": "LAO",
+      "name_zh": "老挝",
+      "name_en": "Laos",
+      "continent": "亚洲",
+      "tz": "Asia/Bangkok",
+      "currency": "LAK"
+    },
+    "LB": {
+      "alpha3": "LBN",
+      "name_zh": "黎巴嫩",
+      "name_en": "Lebanon",
+      "continent": "亚洲",
+      "tz": "Asia/Beirut",
+      "currency": "LBP"
+    },
+    "LC": {
+      "alpha3": "LCA",
+      "name_zh": "圣卢西亚",
+      "name_en": "Saint Lucia",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "XCD"
+    },
+    "LI": {
+      "alpha3": "LIE",
+      "name_zh": "列支敦士登",
+      "name_en": "Liechtenstein",
+      "continent": "欧洲",
+      "tz": "Europe/Zurich",
+      "currency": "CHF"
+    },
+    "LK": {
+      "alpha3": "LKA",
+      "name_zh": "斯里兰卡",
+      "name_en": "Sri Lanka",
+      "continent": "亚洲",
+      "tz": "Asia/Colombo",
+      "currency": "LKR"
+    },
+    "LR": {
+      "alpha3": "LBR",
+      "name_zh": "利比里亚",
+      "name_en": "Liberia",
+      "continent": "非洲",
+      "tz": "Africa/Monrovia",
+      "currency": "LRD"
+    },
+    "LS": {
+      "alpha3": "LSO",
+      "name_zh": "莱索托",
+      "name_en": "Lesotho",
+      "continent": "非洲",
+      "tz": "Africa/Johannesburg",
+      "currency": "LSL"
+    },
+    "LT": {
+      "alpha3": "LTU",
+      "name_zh": "立陶宛",
+      "name_en": "Lithuania",
+      "continent": "欧洲",
+      "tz": "Europe/Vilnius",
+      "currency": "EUR"
+    },
+    "LU": {
+      "alpha3": "LUX",
+      "name_zh": "卢森堡",
+      "name_en": "Luxembourg",
+      "continent": "欧洲",
+      "tz": "Europe/Brussels",
+      "currency": "EUR"
+    },
+    "LV": {
+      "alpha3": "LVA",
+      "name_zh": "拉脱维亚",
+      "name_en": "Latvia",
+      "continent": "欧洲",
+      "tz": "Europe/Riga",
+      "currency": "EUR"
+    },
+    "LY": {
+      "alpha3": "LBY",
+      "name_zh": "利比亚",
+      "name_en": "Libya",
+      "continent": "非洲",
+      "tz": "Africa/Tripoli",
+      "currency": "LYD"
+    },
+    "MA": {
+      "alpha3": "MAR",
+      "name_zh": "摩洛哥",
+      "name_en": "Morocco",
+      "continent": "非洲",
+      "tz": "Africa/Casablanca",
+      "currency": "MAD"
+    },
+    "MC": {
+      "alpha3": "MCO",
+      "name_zh": "摩纳哥",
+      "name_en": "Monaco",
+      "continent": "欧洲",
+      "tz": "Europe/Paris",
+      "currency": "EUR"
+    },
+    "MD": {
+      "alpha3": "MDA",
+      "name_zh": "摩尔多瓦",
+      "name_en": "Moldova",
+      "continent": "欧洲",
+      "tz": "Europe/Chisinau",
+      "currency": "MDL"
+    },
+    "ME": {
+      "alpha3": "MNE",
+      "name_zh": "黑山",
+      "name_en": "Montenegro",
+      "continent": "欧洲",
+      "tz": "Europe/Belgrade",
+      "currency": "EUR"
+    },
+    "MF": {
+      "alpha3": "MAF",
+      "name_zh": "圣马丁",
+      "name_en": "Saint Martin",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "EUR"
+    },
+    "MG": {
+      "alpha3": "MDG",
+      "name_zh": "马达加斯加",
+      "name_en": "Madagascar",
+      "continent": "非洲",
+      "tz": "Africa/Nairobi",
+      "currency": "MGA"
+    },
+    "MH": {
+      "alpha3": "MHL",
+      "name_zh": "马绍尔群岛",
+      "name_en": "Marshall Islands",
+      "continent": "大洋洲",
+      "tz": "Pacific/Tarawa",
+      "currency": "USD"
+    },
+    "MK": {
+      "alpha3": "MKD",
+      "name_zh": "北馬其頓",
+      "name_en": "North Macedonia",
+      "continent": "欧洲",
+      "tz": "Europe/Belgrade",
+      "currency": "MKD"
+    },
+    "ML": {
+      "alpha3": "MLI",
+      "name_zh": "马里",
+      "name_en": "Mali",
+      "continent": "非洲",
+      "tz": "Africa/Abidjan",
+      "currency": "XOF"
+    },
+    "MM": {
+      "alpha3": "MMR",
+      "name_zh": "缅甸",
+      "name_en": "Myanmar",
+      "continent": "亚洲",
+      "tz": "Asia/Yangon",
+      "currency": "MMK"
+    },
+    "MN": {
+      "alpha3": "MNG",
+      "name_zh": "蒙古",
+      "name_en": "Mongolia",
+      "continent": "亚洲",
+      "tz": "Asia/Ulaanbaatar",
+      "currency": "MNT"
+    },
+    "MO": {
+      "alpha3": "MAC",
+      "name_zh": "中国澳门",
+      "name_en": "Macao",
+      "continent": "亚洲",
+      "tz": "Asia/Macau",
+      "currency": "MOP"
+    },
+    "MP": {
+      "alpha3": "MNP",
+      "name_zh": "北马里亚纳群岛",
+      "name_en": "Northern Mariana Islands",
+      "continent": "大洋洲",
+      "tz": "Pacific/Guam",
+      "currency": "USD"
+    },
+    "MQ": {
+      "alpha3": "MTQ",
+      "name_zh": "马提尼克",
+      "name_en": "Martinique",
+      "continent": "美洲",
+      "tz": "America/Martinique",
+      "currency": "EUR"
+    },
+    "MR": {
+      "alpha3": "MRT",
+      "name_zh": "毛里塔尼亚",
+      "name_en": "Mauritania",
+      "continent": "非洲",
+      "tz": "Africa/Abidjan",
+      "currency": "MRU"
+    },
+    "MS": {
+      "alpha3": "MSR",
+      "name_zh": "蒙特塞拉特",
+      "name_en": "Montserrat",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "XCD"
+    },
+    "MT": {
+      "alpha3": "MLT",
+      "name_zh": "马耳他",
+      "name_en": "Malta",
+      "continent": "欧洲",
+      "tz": "Europe/Malta",
+      "currency": "EUR"
+    },
+    "MU": {
+      "alpha3": "MUS",
+      "name_zh": "毛里求斯",
+      "name_en": "Mauritius",
+      "continent": "非洲",
+      "tz": "Indian/Mauritius",
+      "currency": "MUR"
+    },
+    "MV": {
+      "alpha3": "MDV",
+      "name_zh": "马尔代夫",
+      "name_en": "Maldives",
+      "continent": "亚洲",
+      "tz": "Indian/Maldives",
+      "currency": "MVR"
+    },
+    "MW": {
+      "alpha3": "MWI",
+      "name_zh": "马拉维",
+      "name_en": "Malawi",
+      "continent": "非洲",
+      "tz": "Africa/Maputo",
+      "currency": "MWK"
+    },
+    "MX": {
+      "alpha3": "MEX",
+      "name_zh": "墨西哥",
+      "name_en": "Mexico",
+      "continent": "北美洲",
+      "tz": "America/Mexico_City",
+      "currency": "MXN"
+    },
+    "MY": {
+      "alpha3": "MYS",
+      "name_zh": "马来西亚",
+      "name_en": "Malaysia",
+      "continent": "亚洲",
+      "tz": "Asia/Kuala_Lumpur",
+      "currency": "MYR"
+    },
+    "MZ": {
+      "alpha3": "MOZ",
+      "name_zh": "莫桑比克",
+      "name_en": "Mozambique",
+      "continent": "非洲",
+      "tz": "Africa/Maputo",
+      "currency": "MZN"
+    },
+    "NA": {
+      "alpha3": "NAM",
+      "name_zh": "纳米比亚",
+      "name_en": "Namibia",
+      "continent": "非洲",
+      "tz": "Africa/Windhoek",
+      "currency": "NAD"
+    },
+    "NC": {
+      "alpha3": "NCL",
+      "name_zh": "新喀里多尼亚",
+      "name_en": "New Caledonia",
+      "continent": "大洋洲",
+      "tz": "Pacific/Noumea",
+      "currency": "XPF"
+    },
+    "NE": {
+      "alpha3": "NER",
+      "name_zh": "尼日尔",
+      "name_en": "Niger",
+      "continent": "非洲",
+      "tz": "Africa/Lagos",
+      "currency": "XOF"
+    },
+    "NF": {
+      "alpha3": "NFK",
+      "name_zh": "诺福克岛",
+      "name_en": "Norfolk Island",
+      "continent": "大洋洲",
+      "tz": "Pacific/Norfolk",
+      "currency": "AUD"
+    },
+    "NG": {
+      "alpha3": "NGA",
+      "name_zh": "尼日利亚",
+      "name_en": "Nigeria",
+      "continent": "非洲",
+      "tz": "Africa/Lagos",
+      "currency": "NGN"
+    },
+    "NI": {
+      "alpha3": "NIC",
+      "name_zh": "尼加拉瓜",
+      "name_en": "Nicaragua",
+      "continent": "美洲",
+      "tz": "America/Managua",
+      "currency": "NIO"
+    },
+    "NL": {
+      "alpha3": "NLD",
+      "name_zh": "荷兰",
+      "name_en": "Netherlands",
+      "continent": "欧洲",
+      "tz": "Europe/Amsterdam",
+      "currency": "EUR"
+    },
+    "NO": {
+      "alpha3": "NOR",
+      "name_zh": "挪威",
+      "name_en": "Norway",
+      "continent": "欧洲",
+      "tz": "Europe/Oslo",
+      "currency": "NOK"
+    },
+    "NP": {
+      "alpha3": "NPL",
+      "name_zh": "尼泊尔",
+      "name_en": "Nepal",
+      "continent": "亚洲",
+      "tz": "Asia/Kathmandu",
+      "currency": "NPR"
+    },
+    "NR": {
+      "alpha3": "NRU",
+      "name_zh": "瑙鲁",
+      "name_en": "Nauru",
+      "continent": "大洋洲",
+      "tz": "Pacific/Nauru",
+      "currency": "AUD"
+    },
+    "NU": {
+      "alpha3": "NIU",
+      "name_zh": "纽埃",
+      "name_en": "Niue",
+      "continent": "大洋洲",
+      "tz": "Pacific/Niue",
+      "currency": "NZD"
+    },
+    "NZ": {
+      "alpha3": "NZL",
+      "name_zh": "新西兰",
+      "name_en": "New Zealand",
+      "continent": "大洋洲",
+      "tz": "Pacific/Auckland",
+      "currency": "NZD"
+    },
+    "OM": {
+      "alpha3": "OMN",
+      "name_zh": "阿曼",
+      "name_en": "Oman",
+      "continent": "亚洲",
+      "tz": "Asia/Dubai",
+      "currency": "OMR"
+    },
+    "PA": {
+      "alpha3": "PAN",
+      "name_zh": "巴拿马",
+      "name_en": "Panama",
+      "continent": "美洲",
+      "tz": "America/Panama",
+      "currency": "PAB"
+    },
+    "PE": {
+      "alpha3": "PER",
+      "name_zh": "秘鲁",
+      "name_en": "Peru",
+      "continent": "美洲",
+      "tz": "America/Lima",
+      "currency": "PEN"
+    },
+    "PF": {
+      "alpha3": "PYF",
+      "name_zh": "法属波利尼西亚",
+      "name_en": "French Polynesia",
+      "continent": "大洋洲",
+      "tz": "Pacific/Tahiti",
+      "currency": "XPF"
+    },
+    "PG": {
+      "alpha3": "PNG",
+      "name_zh": "巴布亚新几内亚",
+      "name_en": "Papua New Guinea",
+      "continent": "大洋洲",
+      "tz": "Pacific/Port_Moresby",
+      "currency": "PGK"
+    },
+    "PH": {
+      "alpha3": "PHL",
+      "name_zh": "菲律宾",
+      "name_en": "Philippines",
+      "continent": "亚洲",
+      "tz": "Asia/Manila",
+      "currency": "PHP"
+    },
+    "PK": {
+      "alpha3": "PAK",
+      "name_zh": "巴基斯坦",
+      "name_en": "Pakistan",
+      "continent": "亚洲",
+      "tz": "Asia/Karachi",
+      "currency": "PKR"
+    },
+    "PL": {
+      "alpha3": "POL",
+      "name_zh": "波兰",
+      "name_en": "Poland",
+      "continent": "欧洲",
+      "tz": "Europe/Warsaw",
+      "currency": "PLN"
+    },
+    "PM": {
+      "alpha3": "SPM",
+      "name_zh": "圣皮埃尔和密克隆",
+      "name_en": "Saint Pierre and Miquelon",
+      "continent": "美洲",
+      "tz": "America/Miquelon",
+      "currency": "EUR"
+    },
+    "PN": {
+      "alpha3": "PCN",
+      "name_zh": "皮特凯恩群岛",
+      "name_en": "Pitcairn Islands",
+      "continent": "大洋洲",
+      "tz": "Pacific/Pitcairn",
+      "currency": "NZD"
+    },
+    "PR": {
+      "alpha3": "PRI",
+      "name_zh": "波多黎各",
+      "name_en": "Puerto Rico",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "USD"
+    },
+    "PS": {
+      "alpha3": "PSE",
+      "name_zh": "巴勒斯坦",
+      "name_en": "Palestine",
+      "continent": "亚洲",
+      "tz": "Asia/Gaza",
+      "currency": "EGP"
+    },
+    "PT": {
+      "alpha3": "PRT",
+      "name_zh": "葡萄牙",
+      "name_en": "Portugal",
+      "continent": "欧洲",
+      "tz": "Europe/Lisbon",
+      "currency": "EUR"
+    },
+    "PW": {
+      "alpha3": "PLW",
+      "name_zh": "帕劳",
+      "name_en": "Palau",
+      "continent": "大洋洲",
+      "tz": "Pacific/Palau",
+      "currency": "USD"
+    },
+    "PY": {
+      "alpha3": "PRY",
+      "name_zh": "巴拉圭",
+      "name_en": "Paraguay",
+      "continent": "美洲",
+      "tz": "America/Asuncion",
+      "currency": "PYG"
+    },
+    "QA": {
+      "alpha3": "QAT",
+      "name_zh": "卡塔尔",
+      "name_en": "Qatar",
+      "continent": "亚洲",
+      "tz": "Asia/Qatar",
+      "currency": "QAR"
+    },
+    "RE": {
+      "alpha3": "REU",
+      "name_zh": "留尼旺岛",
+      "name_en": "Réunion",
+      "continent": "非洲",
+      "tz": "Asia/Dubai",
+      "currency": "EUR"
+    },
+    "RO": {
+      "alpha3": "ROU",
+      "name_zh": "罗马尼亚",
+      "name_en": "Romania",
+      "continent": "欧洲",
+      "tz": "Europe/Bucharest",
+      "currency": "RON"
+    },
+    "RS": {
+      "alpha3": "SRB",
+      "name_zh": "塞尔维亚",
+      "name_en": "Serbia",
+      "continent": "欧洲",
+      "tz": "Europe/Belgrade",
+      "currency": "RSD"
+    },
+    "RU": {
+      "alpha3": "RUS",
+      "name_zh": "俄罗斯",
+      "name_en": "Russia",
+      "continent": "欧洲",
+      "tz": "Europe/Moscow",
+      "currency": "RUB"
+    },
+    "RW": {
+      "alpha3": "RWA",
+      "name_zh": "卢旺达",
+      "name_en": "Rwanda",
+      "continent": "非洲",
+      "tz": "Africa/Maputo",
+      "currency": "RWF"
+    },
+    "SA": {
+      "alpha3": "SAU",
+      "name_zh": "沙特阿拉伯",
+      "name_en": "Saudi Arabia",
+      "continent": "亚洲",
+      "tz": "Asia/Riyadh",
+      "currency": "SAR"
+    },
+    "SB": {
+      "alpha3": "SLB",
+      "name_zh": "所罗门群岛",
+      "name_en": "Solomon Islands",
+      "continent": "大洋洲",
+      "tz": "Pacific/Guadalcanal",
+      "currency": "SBD"
+    },
+    "SC": {
+      "alpha3": "SYC",
+      "name_zh": "塞舌尔",
+      "name_en": "Seychelles",
+      "continent": "非洲",
+      "tz": "Asia/Dubai",
+      "currency": "SCR"
+    },
+    "SD": {
+      "alpha3": "SDN",
+      "name_zh": "苏丹",
+      "name_en": "Sudan",
+      "continent": "非洲",
+      "tz": "Africa/Khartoum",
+      "currency": "SDG"
+    },
+    "SE": {
+      "alpha3": "SWE",
+      "name_zh": "瑞典",
+      "name_en": "Sweden",
+      "continent": "欧洲",
+      "tz": "Europe/Stockholm",
+      "currency": "SEK"
+    },
+    "SG": {
+      "alpha3": "SGP",
+      "name_zh": "新加坡",
+      "name_en": "Singapore",
+      "continent": "亚洲",
+      "tz": "Asia/Singapore",
+      "currency": "SGD"
+    },
+    "SH": {
+      "alpha3": "SHN",
+      "name_zh": "圣赫勒拿、阿森松和特里斯坦-达库尼亚",
+      "name_en": "Saint Helena, Ascension and Tristan da Cunha",
+      "continent": "非洲",
+      "tz": "Africa/Abidjan",
+      "currency": "GBP"
+    },
+    "SI": {
+      "alpha3": "SVN",
+      "name_zh": "斯洛文尼亚",
+      "name_en": "Slovenia",
+      "continent": "欧洲",
+      "tz": "Europe/Belgrade",
+      "currency": "EUR"
+    },
+    "SJ": {
+      "alpha3": "SJM",
+      "name_zh": "斯瓦尔巴特",
+      "name_en": "Svalbard and Jan Mayen",
+      "continent": "欧洲",
+      "tz": "Europe/Berlin",
+      "currency": "NOK"
+    },
+    "SK": {
+      "alpha3": "SVK",
+      "name_zh": "斯洛伐克",
+      "name_en": "Slovakia",
+      "continent": "欧洲",
+      "tz": "Europe/Prague",
+      "currency": "EUR"
+    },
+    "SL": {
+      "alpha3": "SLE",
+      "name_zh": "塞拉利昂",
+      "name_en": "Sierra Leone",
+      "continent": "非洲",
+      "tz": "Africa/Abidjan",
+      "currency": "SLE"
+    },
+    "SM": {
+      "alpha3": "SMR",
+      "name_zh": "圣马力诺",
+      "name_en": "San Marino",
+      "continent": "欧洲",
+      "tz": "Europe/Rome",
+      "currency": "EUR"
+    },
+    "SN": {
+      "alpha3": "SEN",
+      "name_zh": "塞内加尔",
+      "name_en": "Senegal",
+      "continent": "非洲",
+      "tz": "Africa/Abidjan",
+      "currency": "XOF"
+    },
+    "SO": {
+      "alpha3": "SOM",
+      "name_zh": "索马里",
+      "name_en": "Somalia",
+      "continent": "非洲",
+      "tz": "Africa/Nairobi",
+      "currency": "SOS"
+    },
+    "SR": {
+      "alpha3": "SUR",
+      "name_zh": "苏里南",
+      "name_en": "Suriname",
+      "continent": "美洲",
+      "tz": "America/Paramaribo",
+      "currency": "SRD"
+    },
+    "SS": {
+      "alpha3": "SSD",
+      "name_zh": "南苏丹",
+      "name_en": "South Sudan",
+      "continent": "非洲",
+      "tz": "Africa/Juba",
+      "currency": "SSP"
+    },
+    "ST": {
+      "alpha3": "STP",
+      "name_zh": "圣多美和普林西比",
+      "name_en": "São Tomé and Príncipe",
+      "continent": "非洲",
+      "tz": "Africa/Sao_Tome",
+      "currency": "STN"
+    },
+    "SV": {
+      "alpha3": "SLV",
+      "name_zh": "萨尔瓦多",
+      "name_en": "El Salvador",
+      "continent": "美洲",
+      "tz": "America/El_Salvador",
+      "currency": "USD"
+    },
+    "SX": {
+      "alpha3": "SXM",
+      "name_zh": "圣马丁岛",
+      "name_en": "Sint Maarten",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "ANG"
+    },
+    "SY": {
+      "alpha3": "SYR",
+      "name_zh": "叙利亚",
+      "name_en": "Syria",
+      "continent": "亚洲",
+      "tz": "Asia/Damascus",
+      "currency": "SYP"
+    },
+    "SZ": {
+      "alpha3": "SWZ",
+      "name_zh": "斯威士兰",
+      "name_en": "Eswatini",
+      "continent": "非洲",
+      "tz": "Africa/Johannesburg",
+      "currency": "SZL"
+    },
+    "TC": {
+      "alpha3": "TCA",
+      "name_zh": "特克斯和凯科斯群岛",
+      "name_en": "Turks and Caicos Islands",
+      "continent": "美洲",
+      "tz": "America/Grand_Turk",
+      "currency": "USD"
+    },
+    "TD": {
+      "alpha3": "TCD",
+      "name_zh": "乍得",
+      "name_en": "Chad",
+      "continent": "非洲",
+      "tz": "Africa/Ndjamena",
+      "currency": "XAF"
+    },
+    "TF": {
+      "alpha3": "ATF",
+      "name_zh": "法国南部和南极土地",
+      "name_en": "French Southern and Antarctic Lands",
+      "continent": "",
+      "tz": "Asia/Dubai",
+      "currency": "EUR"
+    },
+    "TG": {
+      "alpha3": "TGO",
+      "name_zh": "多哥",
+      "name_en": "Togo",
+      "continent": "非洲",
+      "tz": "Africa/Abidjan",
+      "currency": "XOF"
+    },
+    "TH": {
+      "alpha3": "THA",
+      "name_zh": "泰国",
+      "name_en": "Thailand",
+      "continent": "亚洲",
+      "tz": "Asia/Bangkok",
+      "currency": "THB"
+    },
+    "TJ": {
+      "alpha3": "TJK",
+      "name_zh": "塔吉克斯坦",
+      "name_en": "Tajikistan",
+      "continent": "亚洲",
+      "tz": "Asia/Dushanbe",
+      "currency": "TJS"
+    },
+    "TK": {
+      "alpha3": "TKL",
+      "name_zh": "托克劳",
+      "name_en": "Tokelau",
+      "continent": "大洋洲",
+      "tz": "Pacific/Fakaofo",
+      "currency": "NZD"
+    },
+    "TL": {
+      "alpha3": "TLS",
+      "name_zh": "东帝汶",
+      "name_en": "Timor-Leste",
+      "continent": "亚洲",
+      "tz": "Asia/Dili",
+      "currency": "USD"
+    },
+    "TM": {
+      "alpha3": "TKM",
+      "name_zh": "土库曼斯坦",
+      "name_en": "Turkmenistan",
+      "continent": "亚洲",
+      "tz": "Asia/Ashgabat",
+      "currency": "TMT"
+    },
+    "TN": {
+      "alpha3": "TUN",
+      "name_zh": "突尼斯",
+      "name_en": "Tunisia",
+      "continent": "非洲",
+      "tz": "Africa/Tunis",
+      "currency": "TND"
+    },
+    "TO": {
+      "alpha3": "TON",
+      "name_zh": "汤加",
+      "name_en": "Tonga",
+      "continent": "大洋洲",
+      "tz": "Pacific/Tongatapu",
+      "currency": "TOP"
+    },
+    "TR": {
+      "alpha3": "TUR",
+      "name_zh": "土耳其",
+      "name_en": "Turkey",
+      "continent": "亚洲",
+      "tz": "Europe/Istanbul",
+      "currency": "TRY"
+    },
+    "TT": {
+      "alpha3": "TTO",
+      "name_zh": "特立尼达和多巴哥",
+      "name_en": "Trinidad and Tobago",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "TTD"
+    },
+    "TV": {
+      "alpha3": "TUV",
+      "name_zh": "图瓦卢",
+      "name_en": "Tuvalu",
+      "continent": "大洋洲",
+      "tz": "Pacific/Tarawa",
+      "currency": "AUD"
+    },
+    "TW": {
+      "alpha3": "TWN",
+      "name_zh": "中国台湾",
+      "name_en": "Taiwan",
+      "continent": "亚洲",
+      "tz": "Asia/Taipei",
+      "currency": "TWD"
+    },
+    "TZ": {
+      "alpha3": "TZA",
+      "name_zh": "坦桑尼亚",
+      "name_en": "Tanzania",
+      "continent": "非洲",
+      "tz": "Africa/Nairobi",
+      "currency": "TZS"
+    },
+    "UA": {
+      "alpha3": "UKR",
+      "name_zh": "乌克兰",
+      "name_en": "Ukraine",
+      "continent": "欧洲",
+      "tz": "Europe/Simferopol",
+      "currency": "UAH"
+    },
+    "UG": {
+      "alpha3": "UGA",
+      "name_zh": "乌干达",
+      "name_en": "Uganda",
+      "continent": "非洲",
+      "tz": "Africa/Nairobi",
+      "currency": "UGX"
+    },
+    "UM": {
+      "alpha3": "UMI",
+      "name_zh": "美国本土外小岛屿",
+      "name_en": "United States Minor Outlying Islands",
+      "continent": "美洲",
+      "tz": "Pacific/Pago_Pago",
+      "currency": "USD"
+    },
+    "US": {
+      "alpha3": "USA",
+      "name_zh": "美国",
+      "name_en": "United States",
+      "continent": "北美洲",
+      "tz": "America/New_York",
+      "currency": "USD"
+    },
+    "UY": {
+      "alpha3": "URY",
+      "name_zh": "乌拉圭",
+      "name_en": "Uruguay",
+      "continent": "美洲",
+      "tz": "America/Montevideo",
+      "currency": "UYU"
+    },
+    "UZ": {
+      "alpha3": "UZB",
+      "name_zh": "乌兹别克斯坦",
+      "name_en": "Uzbekistan",
+      "continent": "亚洲",
+      "tz": "Asia/Samarkand",
+      "currency": "UZS"
+    },
+    "VA": {
+      "alpha3": "VAT",
+      "name_zh": "梵蒂冈",
+      "name_en": "Vatican City",
+      "continent": "欧洲",
+      "tz": "Europe/Rome",
+      "currency": "EUR"
+    },
+    "VC": {
+      "alpha3": "VCT",
+      "name_zh": "圣文森特和格林纳丁斯",
+      "name_en": "Saint Vincent and the Grenadines",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "XCD"
+    },
+    "VE": {
+      "alpha3": "VEN",
+      "name_zh": "委内瑞拉",
+      "name_en": "Venezuela",
+      "continent": "美洲",
+      "tz": "America/Caracas",
+      "currency": "VES"
+    },
+    "VG": {
+      "alpha3": "VGB",
+      "name_zh": "英属维尔京群岛",
+      "name_en": "British Virgin Islands",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "USD"
+    },
+    "VI": {
+      "alpha3": "VIR",
+      "name_zh": "美属维尔京群岛",
+      "name_en": "United States Virgin Islands",
+      "continent": "美洲",
+      "tz": "America/Puerto_Rico",
+      "currency": "USD"
+    },
+    "VN": {
+      "alpha3": "VNM",
+      "name_zh": "越南",
+      "name_en": "Vietnam",
+      "continent": "亚洲",
+      "tz": "Asia/Ho_Chi_Minh",
+      "currency": "VND"
+    },
+    "VU": {
+      "alpha3": "VUT",
+      "name_zh": "瓦努阿图",
+      "name_en": "Vanuatu",
+      "continent": "大洋洲",
+      "tz": "Pacific/Efate",
+      "currency": "VUV"
+    },
+    "WF": {
+      "alpha3": "WLF",
+      "name_zh": "瓦利斯和富图纳群岛",
+      "name_en": "Wallis and Futuna",
+      "continent": "大洋洲",
+      "tz": "Pacific/Tarawa",
+      "currency": "XPF"
+    },
+    "WS": {
+      "alpha3": "WSM",
+      "name_zh": "萨摩亚",
+      "name_en": "Samoa",
+      "continent": "大洋洲",
+      "tz": "Pacific/Apia",
+      "currency": "WST"
+    },
+    "XK": {
+      "alpha3": "UNK",
+      "name_zh": "科索沃",
+      "name_en": "Kosovo",
+      "continent": "欧洲",
+      "tz": "",
+      "currency": "EUR"
+    },
+    "YE": {
+      "alpha3": "YEM",
+      "name_zh": "也门",
+      "name_en": "Yemen",
+      "continent": "亚洲",
+      "tz": "Asia/Riyadh",
+      "currency": "YER"
+    },
+    "YT": {
+      "alpha3": "MYT",
+      "name_zh": "马约特",
+      "name_en": "Mayotte",
+      "continent": "非洲",
+      "tz": "Africa/Nairobi",
+      "currency": "EUR"
+    },
+    "ZA": {
+      "alpha3": "ZAF",
+      "name_zh": "南非",
+      "name_en": "South Africa",
+      "continent": "非洲",
+      "tz": "Africa/Johannesburg",
+      "currency": "ZAR"
+    },
+    "ZM": {
+      "alpha3": "ZMB",
+      "name_zh": "赞比亚",
+      "name_en": "Zambia",
+      "continent": "非洲",
+      "tz": "Africa/Maputo",
+      "currency": "ZMW"
+    },
+    "ZW": {
+      "alpha3": "ZWE",
+      "name_zh": "津巴布韦",
+      "name_en": "Zimbabwe",
+      "continent": "非洲",
+      "tz": "Africa/Maputo",
+      "currency": "BWP"
+    }
   }
 }

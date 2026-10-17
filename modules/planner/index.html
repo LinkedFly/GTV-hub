@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>行程规划器 · GTV-hub</title>
+<style>
+  :root{ --navy:#003154; --teal:#009999; --red:#D20A14; --gold:#FEDD00; --bg:#f4f6f8; --card:#ffffff; }
+  *{ box-sizing:border-box; margin:0; padding:0; font-family:"Segoe UI", system-ui, "Microsoft YaHei", sans-serif; }
+  body{ background:var(--bg); color:#1c2b39; padding-bottom:48px; }
+  header{ background:var(--navy); color:#fff; padding:18px 24px; }
+  header h1{ font-size:20px; } header p{ font-size:12px; opacity:.75; margin-top:4px; }
+  .back{ color:var(--gold); text-decoration:none; font-size:12px; }
+  .wrap{ max-width:900px; margin:20px auto; padding:0 16px; }
+  .card{ background:var(--card); border-radius:12px; padding:18px; margin-bottom:18px; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+  .card h2{ font-size:15px; margin-bottom:14px; color:var(--navy); border-left:4px solid var(--teal); padding-left:8px; }
+  .form-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+  .form-grid label{ font-size:12px; color:#5a6b7a; display:block; margin-bottom:5px; }
+  select, button{ width:100%; padding:9px 10px; border:1px solid #ccd6de; border-radius:8px; font-size:14px; background:#fff; }
+  .btn{ background:var(--navy); color:#fff; border:none; cursor:pointer; font-weight:600; }
+  .btn:hover{ background:#00487c; }
+  .notice{ font-size:12px; color:#8a97a3; margin-top:10px; }
+  table{ width:100%; border-collapse:collapse; font-size:13px; }
+  th,td{ border-bottom:1px solid #eef2f5; padding:8px 8px; text-align:left; }
+  th{ background:#f0f4f7; color:var(--navy); font-weight:600; }
+  .opt-row{ cursor:pointer; }
+  .opt-row:hover{ background:#f7fafc; }
+  .opt-row.selected{ background:#e8f4f4; }
+  .badge{ display:inline-block; padding:2px 8px; border-radius:10px; font-size:11px; color:#fff; }
+  .b-ok{ background:var(--teal); } .b-caution{ background:#e89b00; } .b-warn{ background:var(--red); } .b-info{ background:#8a97a3; }
+  .seg{ font-size:12px; color:#5a6b7a; }
+  .empty{ color:#8a97a3; font-size:13px; padding:10px 0; }
+  footer{ text-align:center; font-size:11px; color:#9aa6b0; margin-top:24px; }
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../../index.html">← 返回仓库首页</a>
+  <h1>行程规划器</h1>
+  <p>行程引擎(直达/中转) + 签证预警引擎(入境/中转)</p>
+</header>
+<div class="wrap">
+  <div class="card">
+    <h2>输入</h2>
+    <div class="form-grid">
+      <div><label>护照国籍</label><select id="nationality"></select></div>
+      <div><label>出发机场</label><select id="depIata"></select></div>
+      <div><label>到达机场</label><select id="arrIata"></select></div>
+    </div>
+    <button class="btn" id="generate" style="margin-top:14px;">生成行程方案</button>
+    <div class="notice">* 签证规则为<b>示例数据</b>，实际出行请以目的地官方信息为准。</div>
+  </div>
+
+  <div class="card">
+    <h2>行程方案（点击一行查看签证预警）</h2>
+    <div id="options"><div class="empty">请选择起止机场并生成。</div></div>
+  </div>
+
+  <div class="card">
+    <h2>签证预警</h2>
+    <div id="visa"><div class="empty">选中一个行程方案后展示逐段签证判定。</div></div>
+  </div>
+  <footer>GTV-hub · SDD v1.1 · core/itinerary-engine + core/visa-warning-engine</footer>
+</div>
+
+<script type="module">
+import { buildItineraries, loadMetadata } from '../../core/itinerary-engine/itinerary.js';
+import { loadVisaRules, checkItinerary, checkEntry } from '../../core/visa-warning-engine/visa-engine.js';
+
+const md = await loadMetadata();
+const rules = await loadVisaRules();
+const $ = id => document.getElementById(id);
+
+// 填充国籍
+const natSel = $('nationality');
+for (const code of Object.keys(md.countries).sort()) {
+    const o = document.createElement('option');
+    o.value = code;
+    o.textContent = `${code} · ${md.countries[code].name_zh || code}`;
+    natSel.appendChild(o);
+}
+natSel.value = 'CN';
+// 填充机场
+function fillAir(sel, def) {
+    for (const a of md.airports) {
+        const o = document.createElement('option');
+        o.value = a.iata;
+        o.textContent = `${a.iata} ${a.city}`;
+        sel.appendChild(o);
+    }
+    sel.value = def;
+}
+fillAir($('depIata'), 'CAN');
+fillAir($('arrIata'), 'LIS');
+
+const visaLabel = { 'visa-free':'免签','visa-on-arrival':'落地签','e-visa':'电子签','visa-required':'需签证','visa-free-airport':'机场过境免签','unknown':'待核实' };
+
+function renderOptions(r) {
+    const box = $('options');
+    if (r.error) { box.innerHTML = `<div class="empty">${r.error}</div>`; return; }
+    let html = `<table><tr><th>方案</th><th>总距离</th><th>分段</th><th>国际</th><th>状态</th></tr>`;
+    r.options.forEach((o, i) => {
+        const segTxt = o.segments.map(s => `${s.from.iata || s.from.city}→${s.to.iata || s.to.city}(${s.km}km)`).join(' · ');
+        const intl = o.segments.some(s => s.from.country !== s.to.country);
+        html += `<tr class="opt-row" data-i="${i}">
+            <td><b>${o.via}</b></td>
+            <td>${o.totalKm} km</td>
+            <td class="seg">${segTxt}</td>
+            <td>${intl ? '是' : '否'}</td>
+            <td><span class="badge b-info">点选</span></td></tr>`;
+    });
+    html += `</table>`;
+    box.innerHTML = html;
+    // 默认选中第一项并显示签证
+    box.querySelectorAll('.opt-row').forEach(tr => {
+        tr.addEventListener('click', () => {
+            box.querySelectorAll('.opt-row').forEach(t => t.classList.remove('selected'));
+            tr.classList.add('selected');
+            renderVisa(r.options[+tr.dataset.i]);
+        });
+    });
+    const first = r.options[0];
+    if (first) { box.querySelector('.opt-row').classList.add('selected'); renderVisa(first); }
+}
+
+function renderVisa(option) {
+    const nat = $('nationality').value;
+    const warnings = checkItinerary(rules, nat, option);
+    const box = $('visa');
+    if (!warnings.length) { box.innerHTML = `<div class="empty">该行程无跨边境段，无需签证校验。</div>`; return; }
+    let html = `<table><tr><th>类型</th><th>国家</th><th>签证</th><th>期限</th><th>级别</th><th>说明</th></tr>`;
+    for (const w of warnings) {
+        const country = w.toCountry || w.transitCountry;
+        const badge = w.level === 'ok' ? 'b-ok' : w.level === 'caution' ? 'b-caution' : w.level === 'warn' ? 'b-warn' : 'b-info';
+        html += `<tr>
+            <td>${w.type === 'transit' ? '中转' : '入境'}</td>
+            <td>${country}</td>
+            <td>${visaLabel[w.visa] || w.visa}</td>
+            <td>${w.maxDays ? w.maxDays + ' 天' : '—'}</td>
+            <td><span class="badge ${badge}">${w.level}</span></td>
+            <td class="seg">${w.note || ''}</td></tr>`;
+    }
+    html += `</table>`;
+    box.innerHTML = html;
+}
+
+$('generate').addEventListener('click', () => {
+    const r = buildItineraries(md, $('depIata').value, $('arrIata').value);
+    renderOptions(r);
+});
+</script>
+</body>
+</html>

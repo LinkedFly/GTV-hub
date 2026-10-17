@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>订阅看板 · GTV-hub</title>
+<style>
+  :root{ --navy:#003154; --teal:#009999; --red:#D20A14; --gold:#FEDD00; --bg:#f0f3f6; --card:#fff; }
+  *{ box-sizing:border-box; margin:0; padding:0; font-family:"Segoe UI", system-ui, "Microsoft YaHei", sans-serif; }
+  body{ background:var(--bg); color:#1c2b39; }
+  .app{ max-width:480px; margin:0 auto; min-height:100vh; background:var(--bg); padding-bottom:28px; }
+  header{ background:linear-gradient(135deg,#003154,#005a8a); color:#fff; padding:22px 20px 60px; border-radius:0 0 24px 24px; }
+  .back{ color:var(--gold); text-decoration:none; font-size:12px; }
+  header h1{ font-size:22px; margin-top:10px; }
+  header p{ font-size:12px; opacity:.8; margin-top:4px; }
+  .cards{ margin:-34px 16px 0; }
+  .card{ background:var(--card); border-radius:16px; padding:18px; box-shadow:0 4px 14px rgba(0,0,0,.06); margin-bottom:14px; }
+  .cur{ border:2px solid var(--gold); }
+  .cur-tag{ display:inline-block; background:var(--gold); color:#003154; font-size:11px; font-weight:700; padding:2px 10px; border-radius:12px; margin-bottom:8px; }
+  .cur h2{ font-size:16px; color:var(--navy); }
+  .cur .meta{ font-size:12px; color:#7a8894; margin:6px 0 12px; }
+  .usage{ margin-top:6px; }
+  .u-row{ margin-bottom:12px; }
+  .u-row .lab{ display:flex; justify-content:space-between; font-size:12px; color:#5a6b7a; margin-bottom:5px; }
+  .bar{ height:9px; background:#eef2f5; border-radius:6px; overflow:hidden; }
+  .bar i{ display:block; height:100%; background:var(--teal); border-radius:6px; }
+  .plans h3{ font-size:14px; color:var(--navy); margin-bottom:12px; }
+  .plan{ border:1.5px solid #e3e9ee; border-radius:14px; padding:14px; margin-bottom:12px; }
+  .plan.active{ border-color:var(--teal); background:#f2fbfb; }
+  .plan .p-head{ display:flex; justify-content:space-between; align-items:center; }
+  .plan .p-name{ font-weight:700; font-size:15px; color:var(--navy); }
+  .plan .p-price{ font-size:15px; color:var(--red); font-weight:700; }
+  .plan .p-price small{ font-size:11px; color:#7a8894; font-weight:400; }
+  .plan ul{ list-style:none; margin-top:8px; }
+  .plan li{ font-size:12px; color:#5a6b7a; padding:2px 0; padding-left:16px; position:relative; }
+  .plan li::before{ content:"✓"; position:absolute; left:0; color:var(--teal); font-weight:700; }
+  .plan button{ width:100%; margin-top:10px; padding:10px; border:none; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; }
+  .plan.active button{ background:var(--teal); color:#fff; }
+  .plan:not(.active) button{ background:#eef2f5; color:var(--navy); }
+  .note{ font-size:11px; color:#9aa6b0; text-align:center; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <a class="back" href="../../index.html">← 返回仓库首页</a>
+    <h1>订阅看板</h1>
+    <p>套餐 · 权益 · 用量 · 续费</p>
+  </header>
+  <div class="cards">
+    <div class="card cur">
+      <span class="cur-tag">当前套餐</span>
+      <h2>专业版 · 年付</h2>
+      <div class="meta">有效期至 2027-03-14 ｜ 自动续费已开启 ｜ 下次扣费 ¥599/年</div>
+      <div class="usage">
+        <div class="u-row">
+          <div class="lab"><span>行程方案生成</span><span>826 / 1000</span></div>
+          <div class="bar"><i style="width:83%"></i></div>
+        </div>
+        <div class="u-row">
+          <div class="lab"><span>签证预警校验</span><span>512 / 1000</span></div>
+          <div class="bar"><i style="width:51%"></i></div>
+        </div>
+        <div class="u-row">
+          <div class="lab"><span>元数据查询</span><span>4,210 / 10,000</span></div>
+          <div class="bar"><i style="width:42%"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="plans">
+      <h3>套餐对比</h3>
+      <div class="plan">
+        <div class="p-head"><span class="p-name">基础版</span><span class="p-price">¥0<small>/月</small></span></div>
+        <ul>
+          <li>2D/3D 地图与航线演示</li>
+          <li>行程方案生成 100 次/月</li>
+          <li>基础元数据查询</li>
+        </ul>
+        <button>当前免费</button>
+      </div>
+      <div class="plan active">
+        <div class="p-head"><span class="p-name">专业版</span><span class="p-price">¥49<small>/月 或 ¥599/年</small></span></div>
+        <ul>
+          <li>不限行程方案生成</li>
+          <li>签证预警引擎（入境/中转）</li>
+          <li>190+ 国家全量元数据</li>
+          <li>多航段智能中转推荐</li>
+        </ul>
+        <button>正在使用</button>
+      </div>
+      <div class="plan">
+        <div class="p-head"><span class="p-name">企业版</span><span class="p-price">¥299<small>/月</small></span></div>
+        <ul>
+          <li>专业版全部功能</li>
+          <li>团队席位 50 个</li>
+          <li>API 接入与专属支持</li>
+          <li>数据导出 / 合规审计</li>
+        </ul>
+        <button>升级企业版</button>
+      </div>
+    </div>
+    <div class="note">演示界面 · GTV-hub SDD v1.2 订阅模块</div>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('.plan button').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const p = b.closest('.plan');
+      document.querySelectorAll('.plan').forEach(x=>x.classList.remove('active'));
+      p.classList.add('active');
+      b.textContent = b.textContent === '正在使用' ? '正在使用' : '已选择';
+    });
+  });
+</script>
+</body>
+</html>

@@ -62,8 +62,8 @@
     <header>
         <h1>GTV-hub</h1>
         <div class="sub">Global Trip &amp; Visa Hub · 全球商旅行程智能规划平台<br>
-            多始发地航班大圆航线 · 中转/入境签证校验 · UNESCO 遗产点位 · 距离测算</div>
-        <span class="badge">v1.0 · 模块化 · 2D / 3D 可视化</span>
+            多始发地航班大圆航线 · 行程引擎(直达/中转) · 入境/中转签证预警 · 190+ 国家元数据 · 订阅看板</div>
+        <span class="badge">v1.1 · 模块化 · core 引擎 + 2D/3D 可视化</span>
     </header>
 
     <main>
@@ -82,6 +82,16 @@
                 <h3><span class="dot" style="background:var(--accent)"></span>poi-calc 公共算法库</h3>
                 <p>零依赖 ES Module：Haversine 大圆距离 + 大圆航线采样，2D / 3D 共用同一套地理算法，后续可迁移到后端 / Cesium 深度复用。</p>
                 <div class="tag">纯函数 · 可复用 · 已测试 ✓</div>
+            </a>
+            <a class="card teal" href="modules/planner/index.html">
+                <h3><span class="dot" style="background:var(--teal)"></span>行程规划器</h3>
+                <p>行程引擎生成直达 + 多枢纽中转方案并按距离排序；签证预警引擎对每段做入境/中转签证判定（示例规则，需以官方信息为准）。</p>
+                <div class="tag">core/itinerary-engine · core/visa-warning-engine</div>
+            </a>
+            <a class="card" href="modules/subscription/index.html">
+                <h3><span class="dot" style="background:var(--gold)"></span>订阅看板</h3>
+                <p>移动端 H5：当前套餐、用量进度条、基础/专业/企业套餐对比与订阅切换交互。</p>
+                <div class="tag">v1.2 · Mobile H5</div>
             </a>
         </div>
 

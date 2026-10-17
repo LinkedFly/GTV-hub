@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "note": "示例签证规则集：仅供系统功能演示与开发，非权威信息。真实出行请务必以目的地国家使领馆/外交部/官方签证门户的最新公告为准。",
+    "visa_levels": { "visa-free": "免签", "visa-on-arrival": "落地签", "e-visa": "电子签", "visa-required": "需签证", "visa-free-airport": "机场过境免签(限条件)", "unknown": "待核实" },
+    "updated": "2026-10-17"
+  },
+  "rules": {
+    "PT": {
+      "country": "葡萄牙",
+      "entry": {
+        "CN": { "visa": "visa-required", "maxDays": null, "note": "中国护照进入葡萄牙需申根签证" },
+        "SG": { "visa": "visa-free", "maxDays": 90, "note": "新加坡护照申根免签" }
+      },
+      "transit": {
+        "CN": { "visa": "visa-free-airport", "maxDays": null, "note": "申根机场过境，中国护照需满足过境免签条件(示例)" }
+      }
+    },
+    "CV": {
+      "country": "佛得角",
+      "entry": {
+        "CN": { "visa": "visa-on-arrival", "maxDays": 30, "note": "佛得角对中国护照提供落地签/电子签(EASE)" }
+      },
+      "transit": {}
+    },
+    "CN": {
+      "country": "中国",
+      "entry": {
+        "PT": { "visa": "visa-free", "maxDays": 30, "note": "葡萄牙护照对华免签(示例)" },
+        "CV": { "visa": "unknown", "maxDays": null, "note": "佛得角护照入境中国，待核实" }
+      },
+      "transit": {}
+    },
+    "AE": {
+      "country": "阿联酋",
+      "entry": {
+        "CN": { "visa": "visa-free", "maxDays": 30, "note": "中国护照入境阿联酋免签(示例)" }
+      },
+      "transit": {
+        "CN": { "visa": "visa-free", "maxDays": null, "note": "迪拜机场过境免签(示例)" }
+      }
+    }
+  }
+}
