@@ -1,0 +1,42 @@
+{
+  "_meta": {
+    "source": "航司公开资料（IATA/ICAO 代码、联盟、枢纽为公开稳定信息）",
+    "description": "航空公司基本信息知识库：IATA/ICAO 代码、中英文名、联盟、所属国家、主要枢纽",
+    "count": 30,
+    "updated": "2026-10-17"
+  },
+  "airlines": [
+    { "iata": "TP", "icao": "TAP", "name_zh": "TAP 葡萄牙航空", "name_en": "TAP Air Portugal", "alliance": "星空联盟", "country": "PT", "hub": ["LIS"] },
+    { "iata": "CA", "icao": "CCA", "name_zh": "中国国际航空", "name_en": "Air China", "alliance": "星空联盟", "country": "CN", "hub": ["PEK"] },
+    { "iata": "CZ", "icao": "CSN", "name_zh": "中国南方航空", "name_en": "China Southern Airlines", "alliance": "天合联盟", "country": "CN", "hub": ["CAN"] },
+    { "iata": "MU", "icao": "CES", "name_zh": "中国东方航空", "name_en": "China Eastern Airlines", "alliance": "天合联盟", "country": "CN", "hub": ["SHA"] },
+    { "iata": "HU", "icao": "CHH", "name_zh": "海南航空", "name_en": "Hainan Airlines", "alliance": "无", "country": "CN", "hub": ["HAK"] },
+    { "iata": "EK", "icao": "UAE", "name_zh": "阿联酋航空", "name_en": "Emirates", "alliance": "无", "country": "AE", "hub": ["DXB"] },
+    { "iata": "QR", "icao": "QTR", "name_zh": "卡塔尔航空", "name_en": "Qatar Airways", "alliance": "寰宇一家", "country": "QA", "hub": ["DOH"] },
+    { "iata": "SQ", "icao": "SIA", "name_zh": "新加坡航空", "name_en": "Singapore Airlines", "alliance": "星空联盟", "country": "SG", "hub": ["SIN"] },
+    { "iata": "TG", "icao": "THA", "name_zh": "泰国国际航空", "name_en": "Thai Airways", "alliance": "星空联盟", "country": "TH", "hub": ["BKK"] },
+    { "iata": "MH", "icao": "MAS", "name_zh": "马来西亚航空", "name_en": "Malaysia Airlines", "alliance": "寰宇一家", "country": "MY", "hub": ["KUL"] },
+    { "iata": "AI", "icao": "AIC", "name_zh": "印度航空", "name_en": "Air India", "alliance": "星空联盟", "country": "IN", "hub": ["DEL"] },
+    { "iata": "GA", "icao": "GIA", "name_zh": "印尼鹰航", "name_en": "Garuda Indonesia", "alliance": "天合联盟", "country": "ID", "hub": ["CGK"] },
+    { "iata": "NH", "icao": "ANA", "name_zh": "全日空", "name_en": "All Nippon Airways", "alliance": "星空联盟", "country": "JP", "hub": ["NRT", "HND"] },
+    { "iata": "JL", "icao": "JAL", "name_zh": "日本航空", "name_en": "Japan Airlines", "alliance": "寰宇一家", "country": "JP", "hub": ["NRT", "HND"] },
+    { "iata": "KE", "icao": "KAL", "name_zh": "大韩航空", "name_en": "Korean Air", "alliance": "天合联盟", "country": "KR", "hub": ["ICN"] },
+    { "iata": "OZ", "icao": "AAR", "name_zh": "韩亚航空", "name_en": "Asiana Airlines", "alliance": "星空联盟", "country": "KR", "hub": ["ICN"] },
+    { "iata": "CX", "icao": "CPA", "name_zh": "国泰航空", "name_en": "Cathay Pacific", "alliance": "寰宇一家", "country": "HK", "hub": ["HKG"] },
+    { "iata": "BR", "icao": "EVA", "name_zh": "长荣航空", "name_en": "EVA Air", "alliance": "星空联盟", "country": "TW", "hub": ["TPE"] },
+    { "iata": "LH", "icao": "DLH", "name_zh": "汉莎航空", "name_en": "Lufthansa", "alliance": "星空联盟", "country": "DE", "hub": ["FRA"] },
+    { "iata": "AF", "icao": "AFR", "name_zh": "法国航空", "name_en": "Air France", "alliance": "天合联盟", "country": "FR", "hub": ["CDG"] },
+    { "iata": "BA", "icao": "BAW", "name_zh": "英国航空", "name_en": "British Airways", "alliance": "寰宇一家", "country": "GB", "hub": ["LHR"] },
+    { "iata": "KL", "icao": "KLM", "name_zh": "荷兰皇家航空", "name_en": "KLM Royal Dutch Airlines", "alliance": "天合联盟", "country": "NL", "hub": ["AMS"] },
+    { "iata": "LX", "icao": "SWR", "name_zh": "瑞士国际航空", "name_en": "Swiss International Air Lines", "alliance": "星空联盟", "country": "CH", "hub": ["ZRH"] },
+    { "iata": "TK", "icao": "THY", "name_zh": "土耳其航空", "name_en": "Turkish Airlines", "alliance": "星空联盟", "country": "TR", "hub": ["IST"] },
+    { "iata": "DL", "icao": "DAL", "name_zh": "达美航空", "name_en": "Delta Air Lines", "alliance": "天合联盟", "country": "US", "hub": ["ATL", "JFK"] },
+    { "iata": "UA", "icao": "UAL", "name_zh": "美联航", "name_en": "United Airlines", "alliance": "星空联盟", "country": "US", "hub": ["ORD", "SFO"] },
+    { "iata": "AA", "icao": "AAL", "name_zh": "美国航空", "name_en": "American Airlines", "alliance": "寰宇一家", "country": "US", "hub": ["DFW"] },
+    { "iata": "AC", "icao": "ACA", "name_zh": "加拿大航空", "name_en": "Air Canada", "alliance": "星空联盟", "country": "CA", "hub": ["YYZ"] },
+    { "iata": "LA", "icao": "LAN", "name_zh": "拉塔姆航空", "name_en": "LATAM Airlines", "alliance": "无", "country": "CL", "hub": ["SCL"] },
+    { "iata": "QF", "icao": "QFA", "name_zh": "澳洲航空", "name_en": "Qantas", "alliance": "寰宇一家", "country": "AU", "hub": ["SYD"] },
+    { "iata": "NZ", "icao": "ANZ", "name_zh": "新西兰航空", "name_en": "Air New Zealand", "alliance": "星空联盟", "country": "NZ", "hub": ["AKL"] },
+    { "iata": "VR", "icao": "TACV", "name_zh": "佛得角航空", "name_en": "Cabo Verde Airlines", "alliance": "无", "country": "CV", "hub": ["SID"] }
+  ]
+}

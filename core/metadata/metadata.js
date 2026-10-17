@@ -8,20 +8,22 @@
 
 const COUNTRY_URL = new URL('../../data/country/countries.json', import.meta.url);
 const AIRPORT_URL = new URL('../../data/airport-airline/airports.json', import.meta.url);
+const AIRLINE_URL = new URL('../../data/airport-airline/airlines.json', import.meta.url);
 
 let _cache = null;
 
 /**
  * 加载元数据（带缓存）
- * @returns {Promise<{countries:Object, airports:Array}>}
+ * @returns {Promise<{countries:Object, airports:Array, airlines:Array}>}
  */
 export async function loadMetadata() {
     if (_cache) return _cache;
-    const [cRes, aRes] = await Promise.all([
+    const [cRes, aRes, lRes] = await Promise.all([
         fetch(COUNTRY_URL).then(r => { if (!r.ok) throw new Error('countries.json 加载失败'); return r.json(); }),
-        fetch(AIRPORT_URL).then(r => { if (!r.ok) throw new Error('airports.json 加载失败'); return r.json(); })
+        fetch(AIRPORT_URL).then(r => { if (!r.ok) throw new Error('airports.json 加载失败'); return r.json(); }),
+        fetch(AIRLINE_URL).then(r => { if (!r.ok) throw new Error('airlines.json 加载失败'); return r.json(); })
     ]);
-    _cache = { countries: cRes.countries, airports: aRes.airports };
+    _cache = { countries: cRes.countries, airports: aRes.airports, airlines: lRes.airlines };
     return _cache;
 }
 
@@ -35,6 +37,12 @@ export function getCountry(md, code) {
 export function getAirport(md, iata) {
     if (!md || !iata) return null;
     return md.airports.find(a => a.iata === iata) || null;
+}
+
+/** 按 IATA（2位航司码）查航空公司 */
+export function getAirline(md, code) {
+    if (!md || !code) return null;
+    return md.airlines.find(a => a.iata === code) || null;
 }
 
 /**

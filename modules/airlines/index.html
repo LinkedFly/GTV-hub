@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>航空公司知识库 · GTV-hub</title>
+<style>
+  :root{ --navy:#003154; --teal:#009999; --red:#D20A14; --gold:#FEDD00; --bg:#f4f6f8; --card:#fff; }
+  *{ box-sizing:border-box; margin:0; padding:0; font-family:"Segoe UI", system-ui, "Microsoft YaHei", sans-serif; }
+  body{ background:var(--bg); color:#1c2b39; padding-bottom:48px; }
+  header{ background:var(--navy); color:#fff; padding:16px 22px; }
+  header h1{ font-size:19px; } header p{ font-size:12px; opacity:.75; margin-top:3px; }
+  .back{ color:var(--gold); text-decoration:none; font-size:12px; }
+  .wrap{ max-width:1100px; margin:18px auto; padding:0 16px; }
+  .filters{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+  .filters input[type=text]{ padding:9px 12px; border:1px solid #ccd6de; border-radius:8px; font-size:14px; width:260px; }
+  .filters select{ padding:9px 12px; border:1px solid #ccd6de; border-radius:8px; font-size:14px; }
+  .card{ background:var(--card); border-radius:12px; box-shadow:0 1px 4px rgba(0,0,0,.06); overflow:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:13px; min-width:820px; }
+  thead th{ position:sticky; top:0; background:var(--navy); color:#fff; padding:9px 8px; text-align:left; font-weight:600; white-space:nowrap; }
+  tbody td{ border-bottom:1px solid #eef2f5; padding:8px; vertical-align:middle; }
+  tbody tr:hover{ background:#f7fafc; }
+  .code{ font-weight:700; color:var(--navy); }
+  .al{ display:inline-block; padding:2px 8px; border-radius:10px; font-size:11px; background:#e8f4f4; color:var(--teal); }
+  .al-none{ background:#eef1f4; color:#7a8894; }
+  .hubs{ font-size:12px; color:#5a6b7a; }
+  .count{ font-size:13px; color:#7a8894; margin-bottom:10px; }
+  footer{ text-align:center; font-size:11px; color:#9aa6b0; margin-top:24px; }
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../../index.html">← 返回仓库首页</a>
+  <h1>航空公司基本信息知识库</h1>
+  <p>IATA/ICAO 代码 · 中英文名 · 联盟 · 所属国家 · 主要枢纽</p>
+</header>
+<div class="wrap">
+  <div class="filters">
+    <input type="text" id="q" placeholder="搜索：代码 / 航司名 / 国家">
+    <select id="alliance"><option value="">全部联盟</option></select>
+    <select id="country"><option value="">全部国家</option></select>
+  </div>
+  <div class="card">
+    <div class="count" id="count" style="padding:12px 16px 0"></div>
+    <table>
+      <thead><tr><th>IATA</th><th>ICAO</th><th>航司</th><th>联盟</th><th>国家</th><th>主要枢纽</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <footer>GTV-hub · 航空公司基本信息知识库 · data/airport-airline/airlines.json</footer>
+</div>
+
+<script type="module">
+import { loadMetadata, getAirport, getCountry } from '../../core/metadata/metadata.js';
+const md = await loadMetadata();
+const $ = id => document.getElementById(id);
+
+// 联盟/国家筛选选项
+const alliances = [...new Set(md.airlines.map(a => a.alliance).filter(Boolean))].sort();
+for (const al of alliances) { const o = document.createElement('option'); o.value = al; o.textContent = al; $('alliance').appendChild(o); }
+const countries = [...new Set(md.airlines.map(a => a.country))].sort();
+for (const c of countries) { const o = document.createElement('option'); o.value = c; o.textContent = `${c} · ${(getCountry(md, c)?.name_zh) || c}`; $('country').appendChild(o); }
+
+function render() {
+    const q = $('q').value.trim().toLowerCase();
+    const al = $('alliance').value, cn = $('country').value;
+    const list = md.airlines.filter(a => {
+        if (al && a.alliance !== al) return false;
+        if (cn && a.country !== cn) return false;
+        if (q) {
+            const hay = `${a.iata} ${a.icao} ${a.name_zh} ${a.name_en} ${a.country}`.toLowerCase();
+            if (!hay.includes(q)) return false;
+        }
+        return true;
+    });
+    const hubsName = hubs => hubs.map(h => { const ap = getAirport(md, h); return ap ? `${ap.city}(${h})` : h; }).join('、');
+    $('count').textContent = `共 ${list.length} 家`;
+    $('tbody').innerHTML = list.map(a => `<tr>
+        <td class="code">${a.iata}</td><td>${a.icao}</td>
+        <td><b>${a.name_zh}</b><br><span style="font-size:11px;color:#7a8894">${a.name_en}</span></td>
+        <td>${a.alliance === '无' ? `<span class="al al-none">${a.alliance}</span>` : `<span class="al">${a.alliance}</span>`}</td>
+        <td>${getCountry(md, a.country)?.name_zh || a.country}</td>
+        <td class="hubs">${hubsName(a.hub)}</td></tr>`).join('');
+}
+$('q').addEventListener('input', render);
+$('alliance').addEventListener('change', render);
+$('country').addEventListener('change', render);
+render();
+</script>
+</body>
+</html>
