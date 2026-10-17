@@ -1,0 +1,39 @@
+{
+  "_meta": {
+    "source": "OpenTravelData 机场/航司数据（CC0，按需扩充，当前为演示子集）",
+    "description": "机场元数据：IATA、机场全名、城市、国家(ISO alpha-2)、IANA 时区、坐标",
+    "updated": "2026-10-17"
+  },
+  "airports": [
+    { "iata": "LIS", "name": "里斯本温贝托·德尔加多机场", "city": "里斯本", "country": "PT", "tz": "Europe/Lisbon", "lat": 38.7742, "lon": -9.1342 },
+    { "iata": "CAN", "name": "广州白云国际机场", "city": "广州", "country": "CN", "tz": "Asia/Shanghai", "lat": 23.3924, "lon": 113.2988 },
+    { "iata": "RAI", "name": "普拉亚·纳尔逊·曼德拉国际机场", "city": "普拉亚", "country": "CV", "tz": "Atlantic/Cape_Verde", "lat": 14.9414, "lon": -23.4863 },
+    { "iata": "PEK", "name": "北京首都国际机场", "city": "北京", "country": "CN", "tz": "Asia/Shanghai", "lat": 40.0799, "lon": 116.6031 },
+    { "iata": "SHA", "name": "上海虹桥国际机场", "city": "上海", "country": "CN", "tz": "Asia/Shanghai", "lat": 31.1979, "lon": 121.3363 },
+    { "iata": "SZX", "name": "深圳宝安国际机场", "city": "深圳", "country": "CN", "tz": "Asia/Shanghai", "lat": 22.6393, "lon": 113.8107 },
+    { "iata": "HKG", "name": "香港国际机场", "city": "香港", "country": "HK", "tz": "Asia/Hong_Kong", "lat": 22.3080, "lon": 113.9185 },
+    { "iata": "TPE", "name": "台湾桃园国际机场", "city": "台北", "country": "TW", "tz": "Asia/Taipei", "lat": 25.0797, "lon": 121.2342 },
+    { "iata": "NRT", "name": "东京成田国际机场", "city": "东京", "country": "JP", "tz": "Asia/Tokyo", "lat": 35.7647, "lon": 140.3864 },
+    { "iata": "HND", "name": "东京羽田国际机场", "city": "东京", "country": "JP", "tz": "Asia/Tokyo", "lat": 35.5494, "lon": 139.7798 },
+    { "iata": "ICN", "name": "首尔仁川国际机场", "city": "首尔", "country": "KR", "tz": "Asia/Seoul", "lat": 37.4602, "lon": 126.4407 },
+    { "iata": "SIN", "name": "新加坡樟宜机场", "city": "新加坡", "country": "SG", "tz": "Asia/Singapore", "lat": 1.3644, "lon": 103.9915 },
+    { "iata": "BKK", "name": "曼谷素万那普国际机场", "city": "曼谷", "country": "TH", "tz": "Asia/Bangkok", "lat": 13.6900, "lon": 100.7501 },
+    { "iata": "KUL", "name": "吉隆坡国际机场", "city": "吉隆坡", "country": "MY", "tz": "Asia/Kuala_Lumpur", "lat": 2.7456, "lon": 101.7099 },
+    { "iata": "DEL", "name": "德里英迪拉·甘地国际机场", "city": "德里", "country": "IN", "tz": "Asia/Kolkata", "lat": 28.5562, "lon": 77.1000 },
+    { "iata": "CGK", "name": "雅加达苏加诺-哈达国际机场", "city": "雅加达", "country": "ID", "tz": "Asia/Jakarta", "lat": -6.1256, "lon": 106.6559 },
+    { "iata": "DXB", "name": "迪拜国际机场", "city": "迪拜", "country": "AE", "tz": "Asia/Dubai", "lat": 25.2532, "lon": 55.3657 },
+    { "iata": "DOH", "name": "多哈哈马德国际机场", "city": "多哈", "country": "QA", "tz": "Asia/Qatar", "lat": 25.2731, "lon": 51.6081 },
+    { "iata": "IST", "name": "伊斯坦布尔国际机场", "city": "伊斯坦布尔", "country": "TR", "tz": "Europe/Istanbul", "lat": 41.2753, "lon": 28.7519 },
+    { "iata": "FRA", "name": "法兰克福国际机场", "city": "法兰克福", "country": "DE", "tz": "Europe/Berlin", "lat": 50.0379, "lon": 8.5622 },
+    { "iata": "CDG", "name": "巴黎夏尔·戴高乐机场", "city": "巴黎", "country": "FR", "tz": "Europe/Paris", "lat": 49.0097, "lon": 2.5479 },
+    { "iata": "LHR", "name": "伦敦希思罗机场", "city": "伦敦", "country": "GB", "tz": "Europe/London", "lat": 51.4700, "lon": -0.4543 },
+    { "iata": "AMS", "name": "阿姆斯特丹史基浦机场", "city": "阿姆斯特丹", "country": "NL", "tz": "Europe/Amsterdam", "lat": 52.3105, "lon": 4.7683 },
+    { "iata": "ZRH", "name": "苏黎世机场", "city": "苏黎世", "country": "CH", "tz": "Europe/Zurich", "lat": 47.4647, "lon": 8.5492 },
+    { "iata": "JFK", "name": "纽约约翰·F·肯尼迪国际机场", "city": "纽约", "country": "US", "tz": "America/New_York", "lat": 40.6413, "lon": -73.7781 },
+    { "iata": "LAX", "name": "洛杉矶国际机场", "city": "洛杉矶", "country": "US", "tz": "America/Los_Angeles", "lat": 33.9416, "lon": -118.4085 },
+    { "iata": "YYZ", "name": "多伦多皮尔逊国际机场", "city": "多伦多", "country": "CA", "tz": "America/Toronto", "lat": 43.6777, "lon": -79.6248 },
+    { "iata": "GRU", "name": "圣保罗瓜鲁柳斯国际机场", "city": "圣保罗", "country": "BR", "tz": "America/Sao_Paulo", "lat": -23.4356, "lon": -46.4731 },
+    { "iata": "SYD", "name": "悉尼金斯福德·史密斯机场", "city": "悉尼", "country": "AU", "tz": "Australia/Sydney", "lat": -33.9399, "lon": 151.1753 },
+    { "iata": "AKL", "name": "奥克兰国际机场", "city": "奥克兰", "country": "NZ", "tz": "Pacific/Auckland", "lat": -37.0082, "lon": 174.7850 }
+  ]
+}

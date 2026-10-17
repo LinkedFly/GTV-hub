@@ -63,9 +63,12 @@
     <!-- 引入公共地理算法模块（ES Module） -->
     <script type="module">
         import { calcDistance, greatCirclePoints } from '../poi-calc/poi-calc.js';
+        import { loadMetadata, enrichPlace } from '../../core/metadata/metadata.js';
 
         // 航线 / POI 配置统一从 data/routes.json 读取（2D / 3D 共用）
         const config = await (await fetch('../../data/routes.json')).json();
+        // 元数据引擎：加载国家 / 机场数据集
+        const md = await loadMetadata();
 
         const map = L.map('map').setView([26, -16], 4);
 
@@ -75,12 +78,16 @@
             maxZoom: 19
         }).addTo(map);
 
-        // 生成地点弹窗文案（机场含 IATA，均含国家与时区）
+        // 生成端点弹窗文案（经元数据引擎丰富：国家中文名/洲/货币/时区/机场全名）
         function placePopup(p) {
-            const iata = p.iata ? `<b>${p.iata} ${p.city}</b>` : `<b>${p.city}</b>`;
-            const country = p.country ? `<br>国家：${p.country}` : '';
-            const tz = p.tz ? `<br>时区：${p.tz}` : '';
-            return iata + country + tz;
+            const e = enrichPlace(md, p);
+            const title = e.iata ? `<b>${e.iata} ${e.city}</b>` : `<b>${e.city}</b>`;
+            const parts = [title];
+            if (e.countryName) parts.push(`国家：${e.countryName}`);
+            if (e.continent) parts.push(`洲：${e.continent}`);
+            if (e.currency) parts.push(`货币：${e.currency}`);
+            if (e.tz) parts.push(`时区：${e.tz}`);
+            return parts.join('<br>');
         }
 
         // 绘制 POI（酒店 / UNESCO）

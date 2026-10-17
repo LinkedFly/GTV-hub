@@ -25,9 +25,12 @@
 
     <script type="module">
         import { calcDistance, greatCirclePoints } from '../poi-calc/poi-calc.js';
+        import { loadMetadata, enrichPlace } from '../../core/metadata/metadata.js';
 
         // 航线 / POI 配置统一从 data/routes.json 读取（2D / 3D 共用）
         const config = await (await fetch('../../data/routes.json')).json();
+        // 元数据引擎：加载国家 / 机场数据集
+        const md = await loadMetadata();
         // 3D 演示默认使用第一条航线
         const route = Object.values(config.routes)[0];
         const dep = route.dep, arr = route.arr;
@@ -70,12 +73,16 @@
             }
         });
 
-        // 标注标签（含 IATA / 国家 / 时区）
+        // 标注标签（经元数据引擎丰富：机场全名/IATA/国家/洲/货币/时区）
         function labelText(p, prefix) {
-            const iata = p.iata ? ` ${p.iata}` : '';
-            const country = p.country ? `\n${p.country}` : '';
-            const tz = p.tz ? `\n${p.tz}` : '';
-            return `${prefix}${iata}\n${p.city}${country}${tz}`;
+            const e = enrichPlace(md, p);
+            const iata = e.iata ? ` ${e.iata}` : '';
+            const lines = [`${prefix}${iata}`, e.city];
+            if (e.countryName) lines.push(e.countryName);
+            if (e.continent) lines.push(e.continent);
+            if (e.currency) lines.push(`货币 ${e.currency}`);
+            if (e.tz) lines.push(e.tz);
+            return lines.join('\n');
         }
 
         viewer.entities.add({
@@ -103,11 +110,12 @@
             }
         });
 
-        // 信息栏：航线名 + 大圆距离
+        // 信息栏：航线名 + 大圆距离 + 起终点（元数据丰富）
         const dist = calcDistance(dep.lat, dep.lon, arr.lat, arr.lon);
+        const de = enrichPlace(md, dep), ae = enrichPlace(md, arr);
         document.getElementById("flightInfo").innerHTML =
             `<b>${route.name}</b><br>大圆航线距离：${dist} km` +
-            `<br>${dep.city}（${dep.country}） → ${arr.city}（${arr.country}）`;
+            `<br>${de.city}（${de.countryName || de.country}） → ${ae.city}（${ae.countryName || ae.country}）`;
 
         // 视角定位到航线
         viewer.camera.flyTo({
