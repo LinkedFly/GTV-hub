@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "note": "示例签证规则集：仅供系统功能演示与开发，非权威信息。真实出行请务必以目的地国家使领馆/外交部/官方签证门户的最新公告为准。",
+    "note": "示例签证规则集：仅供系统功能演示与开发，非权威信息。真实出行请务必以目的地国家使领馆/外交部/官方签证门户的最新公告为准。transitMaxHours 为「中转驻留时长窗口」：超过该时长或离开机场禁区，通常需要（过境/短期）签证，引擎会据此升级预警。",
     "visa_levels": {
       "visa-free": "免签",
       "visa-on-arrival": "落地签",
@@ -15,63 +15,84 @@
     "PT": {
       "country": "葡萄牙",
       "entry": {
-        "CN": {
-          "visa": "visa-required",
-          "note": "中国护照进入葡萄牙需申根签证"
-        },
-        "SG": {
-          "visa": "visa-free",
-          "maxDays": 90,
-          "note": "新加坡护照申根免签"
-        }
+        "CN": { "visa": "visa-required", "note": "中国护照进入葡萄牙需申根签证" },
+        "SG": { "visa": "visa-free", "maxDays": 90, "note": "新加坡护照申根免签" }
       },
       "transit": {
-        "CN": {
-          "visa": "visa-free-airport",
-          "note": "申根机场过境，中国护照需满足过境免签条件(示例)"
-        }
+        "CN": { "visa": "visa-free-airport", "transitMaxHours": 24, "note": "申根机场过境，中国护照需满足过境免签条件；停留超24h或出禁区需申根过境签证(示例)" }
       }
     },
     "CV": {
       "country": "佛得角",
       "entry": {
-        "CN": {
-          "visa": "visa-on-arrival",
-          "maxDays": 30,
-          "note": "佛得角对中国护照提供落地签/电子签(EASE)"
-        }
+        "CN": { "visa": "visa-on-arrival", "maxDays": 30, "note": "佛得角对中国护照提供落地签/电子签(EASE)" }
       },
       "transit": {}
     },
     "CN": {
       "country": "中国",
       "entry": {
-        "PT": {
-          "visa": "visa-free",
-          "maxDays": 30,
-          "note": "葡萄牙护照对华免签(示例)"
-        },
-        "CV": {
-          "visa": "unknown",
-          "note": "佛得角护照入境中国，待核实"
-        }
+        "PT": { "visa": "visa-free", "maxDays": 30, "note": "葡萄牙护照对华免签(示例)" },
+        "CV": { "visa": "unknown", "note": "佛得角护照入境中国，待核实" }
       },
       "transit": {}
     },
     "AE": {
       "country": "阿联酋",
       "entry": {
-        "CN": {
-          "visa": "visa-free",
-          "maxDays": 30,
-          "note": "中国护照入境阿联酋免签(示例)"
-        }
+        "CN": { "visa": "visa-free", "maxDays": 30, "note": "中国护照入境阿联酋免签(示例)" }
       },
       "transit": {
-        "CN": {
-          "visa": "visa-free",
-          "note": "迪拜机场过境免签(示例)"
-        }
+        "CN": { "visa": "visa-free", "transitMaxHours": 96, "note": "迪拜机场过境免签；停留超96h需入境签证(示例)" }
+      }
+    },
+    "FR": {
+      "country": "法国",
+      "entry": {},
+      "transit": {
+        "CN": { "visa": "visa-free-airport", "transitMaxHours": 24, "note": "巴黎戴高乐机场过境免签(限条件)；停留超24h或出禁区需申根过境签证(示例)" }
+      }
+    },
+    "DE": {
+      "country": "德国",
+      "entry": {},
+      "transit": {
+        "CN": { "visa": "visa-free-airport", "transitMaxHours": 24, "note": "法兰克福机场过境免签(限条件)；停留超24h或出禁区需申根过境签证(示例)" }
+      }
+    },
+    "TR": {
+      "country": "土耳其",
+      "entry": {},
+      "transit": {
+        "CN": { "visa": "visa-free", "transitMaxHours": 24, "note": "伊斯坦布尔机场过境免签；停留超24h需过境/短期签证(示例)" }
+      }
+    },
+    "QA": {
+      "country": "卡塔尔",
+      "entry": {},
+      "transit": {
+        "CN": { "visa": "visa-free", "transitMaxHours": 24, "note": "多哈机场过境免签；停留超24h需签证(示例)" }
+      }
+    },
+    "SG": {
+      "country": "新加坡",
+      "entry": {},
+      "transit": {
+        "CN": { "visa": "visa-free", "transitMaxHours": 96, "note": "新加坡过境免签(条件性)；停留超96h需签证(示例)" }
+      }
+    },
+    "KR": {
+      "country": "韩国",
+      "entry": {},
+      "transit": {
+        "CN": { "visa": "visa-free", "transitMaxHours": 72, "note": "韩国过境免签(限条件)；停留超72h需签证(示例)" }
+      }
+    },
+    "HK": {
+      "country": "中国香港",
+      "entry": {},
+      "transit": {
+        "CN": { "visa": "visa-free", "transitMaxHours": 168, "note": "香港过境停留免签(7天)；超期需签注(示例)" }
       }
     }
   }

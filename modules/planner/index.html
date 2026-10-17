@@ -61,6 +61,11 @@
       <div><label>出发机场</label><select id="depIata"></select></div>
       <div><label>到达机场</label><select id="arrIata"></select></div>
     </div>
+    <div style="margin-top:12px;">
+      <label style="font-size:12px;color:#5a6b7a;margin-right:8px;">中转停留(小时)</label>
+      <input type="number" id="layover" value="3" min="0" max="72" style="width:88px;padding:7px 9px;border:1px solid #ccd6de;border-radius:8px;">
+      <span style="font-size:11px;color:#8a97a3;margin-left:8px;">超免过境签窗口将升级签证预警</span>
+    </div>
     <div class="btn-row">
       <button class="btn" id="generate">生成行程方案</button>
       <button class="btn" id="exportBtn" style="background:var(--teal);">导出行程单</button>
@@ -179,7 +184,7 @@ function renderVisa(option) {
             <td>${w.type === 'transit' ? '中转' : '入境'}</td>
             <td>${country}</td>
             <td>${visaLabel[w.visa] || w.visa}</td>
-            <td>${w.maxDays ? w.maxDays + ' 天' : '—'}</td>
+            <td>${w.maxDays ? w.maxDays + ' 天' : (w.layoverHours != null ? `停留 ${w.layoverHours}h / 窗口≤${w.transitMaxHours}h` : '—')}</td>
             <td><span class="badge ${badge}">${w.level}</span></td>
             <td class="seg">${w.note || ''}</td></tr>`;
     }
@@ -274,7 +279,8 @@ $('clModal').addEventListener('click', () => $('modalMask').classList.remove('sh
 $('modalMask').addEventListener('click', e => { if (e.target === $('modalMask')) $('modalMask').classList.remove('show'); });
 
 $('generate').addEventListener('click', () => {
-    const r = buildItineraries(md, $('depIata').value, $('arrIata').value);
+    const lay = Math.max(0, Number($('layover').value) || 0);
+    const r = buildItineraries(md, $('depIata').value, $('arrIata').value, undefined, lay);
     renderOptions(r);
 });
 </script>

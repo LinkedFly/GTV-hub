@@ -1,10 +1,17 @@
 {
-  "version": 1,
+  "_meta": {
+    "note": "全球大圆航线集合：dep/arr 含 IATA/城市/ISO国家/时区/坐标，airline 为执飞航司 IATA",
+    "count": 12,
+    "updated": "2026-10-17"
+  },
   "routes": {
     "LIS-CV": {
       "name": "LIS里斯本 → 佛得角",
       "airline": "TP",
-      "view": [26, -16],
+      "view": [
+        26,
+        -16
+      ],
       "zoom": 4,
       "dep": {
         "iata": "LIS",
@@ -25,7 +32,10 @@
     "CAN-LIS": {
       "name": "CAN广州 → LIS里斯本",
       "airline": "CZ",
-      "view": [32, 10],
+      "view": [
+        32,
+        10
+      ],
       "zoom": 3,
       "dep": {
         "iata": "CAN",
@@ -42,6 +52,256 @@
         "tz": "Europe/Lisbon",
         "lat": 38.7223,
         "lon": -9.1393
+      }
+    },
+    "CAN-SYD": {
+      "name": "CAN广州 → SYD悉尼",
+      "airline": "CZ",
+      "view": [
+        -5.27,
+        132.24
+      ],
+      "zoom": 2,
+      "dep": {
+        "iata": "CAN",
+        "city": "广州",
+        "country": "CN",
+        "tz": "Asia/Shanghai",
+        "lat": 23.3924,
+        "lon": 113.2988
+      },
+      "arr": {
+        "iata": "SYD",
+        "city": "悉尼",
+        "country": "AU",
+        "tz": "Australia/Sydney",
+        "lat": -33.9399,
+        "lon": 151.1753
+      }
+    },
+    "PEK-LHR": {
+      "name": "PEK北京 → LHR伦敦",
+      "airline": "CA",
+      "view": [
+        45.77,
+        58.07
+      ],
+      "zoom": 2,
+      "dep": {
+        "iata": "PEK",
+        "city": "北京",
+        "country": "CN",
+        "tz": "Asia/Shanghai",
+        "lat": 40.0799,
+        "lon": 116.6031
+      },
+      "arr": {
+        "iata": "LHR",
+        "city": "伦敦",
+        "country": "GB",
+        "tz": "Europe/London",
+        "lat": 51.47,
+        "lon": -0.4543
+      }
+    },
+    "HKG-JFK": {
+      "name": "HKG香港 → JFK纽约",
+      "airline": "CX",
+      "view": [
+        31.47,
+        20.07
+      ],
+      "zoom": 2,
+      "dep": {
+        "iata": "HKG",
+        "city": "香港",
+        "country": "HK",
+        "tz": "Asia/Hong_Kong",
+        "lat": 22.308,
+        "lon": 113.9185
+      },
+      "arr": {
+        "iata": "JFK",
+        "city": "纽约",
+        "country": "US",
+        "tz": "America/New_York",
+        "lat": 40.6413,
+        "lon": -73.7781
+      }
+    },
+    "SIN-LAX": {
+      "name": "SIN新加坡 → LAX洛杉矶",
+      "airline": "SQ",
+      "view": [
+        17.65,
+        -7.21
+      ],
+      "zoom": 2,
+      "dep": {
+        "iata": "SIN",
+        "city": "新加坡",
+        "country": "SG",
+        "tz": "Asia/Singapore",
+        "lat": 1.3644,
+        "lon": 103.9915
+      },
+      "arr": {
+        "iata": "LAX",
+        "city": "洛杉矶",
+        "country": "US",
+        "tz": "America/Los_Angeles",
+        "lat": 33.9416,
+        "lon": -118.4085
+      }
+    },
+    "DXB-JNB": {
+      "name": "DXB迪拜 → JNB约翰内斯堡",
+      "airline": "EK",
+      "view": [
+        -0.44,
+        41.81
+      ],
+      "zoom": 2,
+      "dep": {
+        "iata": "DXB",
+        "city": "迪拜",
+        "country": "AE",
+        "tz": "Asia/Dubai",
+        "lat": 25.2532,
+        "lon": 55.3657
+      },
+      "arr": {
+        "iata": "JNB",
+        "city": "Johannesburg",
+        "country": "ZA",
+        "tz": "Africa/Johannesburg",
+        "lat": -26.14008,
+        "lon": 28.2468
+      }
+    },
+    "DXB-NRT": {
+      "name": "DXB迪拜 → NRT东京成田",
+      "airline": "EK",
+      "view": [
+        30.51,
+        97.88
+      ],
+      "zoom": 2,
+      "dep": {
+        "iata": "DXB",
+        "city": "迪拜",
+        "country": "AE",
+        "tz": "Asia/Dubai",
+        "lat": 25.2532,
+        "lon": 55.3657
+      },
+      "arr": {
+        "iata": "NRT",
+        "city": "东京",
+        "country": "JP",
+        "tz": "Asia/Tokyo",
+        "lat": 35.7647,
+        "lon": 140.3864
+      }
+    },
+    "FRA-GRU": {
+      "name": "FRA法兰克福 → GRU圣保罗",
+      "airline": "LH",
+      "view": [
+        13.3,
+        -18.96
+      ],
+      "zoom": 2,
+      "dep": {
+        "iata": "FRA",
+        "city": "法兰克福",
+        "country": "DE",
+        "tz": "Europe/Berlin",
+        "lat": 50.0379,
+        "lon": 8.5622
+      },
+      "arr": {
+        "iata": "GRU",
+        "city": "圣保罗",
+        "country": "BR",
+        "tz": "America/Sao_Paulo",
+        "lat": -23.4356,
+        "lon": -46.4731
+      }
+    },
+    "CDG-SYD": {
+      "name": "CDG巴黎 → SYD悉尼",
+      "airline": "AF",
+      "view": [
+        7.53,
+        76.86
+      ],
+      "zoom": 2,
+      "dep": {
+        "iata": "CDG",
+        "city": "巴黎",
+        "country": "FR",
+        "tz": "Europe/Paris",
+        "lat": 49.0097,
+        "lon": 2.5479
+      },
+      "arr": {
+        "iata": "SYD",
+        "city": "悉尼",
+        "country": "AU",
+        "tz": "Australia/Sydney",
+        "lat": -33.9399,
+        "lon": 151.1753
+      }
+    },
+    "IST-JFK": {
+      "name": "IST伊斯坦布尔 → JFK纽约",
+      "airline": "TK",
+      "view": [
+        40.96,
+        -22.51
+      ],
+      "zoom": 2,
+      "dep": {
+        "iata": "IST",
+        "city": "伊斯坦布尔",
+        "country": "TR",
+        "tz": "Europe/Istanbul",
+        "lat": 41.2753,
+        "lon": 28.7519
+      },
+      "arr": {
+        "iata": "JFK",
+        "city": "纽约",
+        "country": "US",
+        "tz": "America/New_York",
+        "lat": 40.6413,
+        "lon": -73.7781
+      }
+    },
+    "SIN-FRA": {
+      "name": "SIN新加坡 → FRA法兰克福",
+      "airline": "SQ",
+      "view": [
+        25.7,
+        56.28
+      ],
+      "zoom": 2,
+      "dep": {
+        "iata": "SIN",
+        "city": "新加坡",
+        "country": "SG",
+        "tz": "Asia/Singapore",
+        "lat": 1.3644,
+        "lon": 103.9915
+      },
+      "arr": {
+        "iata": "FRA",
+        "city": "法兰克福",
+        "country": "DE",
+        "tz": "Europe/Berlin",
+        "lat": 50.0379,
+        "lon": 8.5622
       }
     }
   },

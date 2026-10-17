@@ -31,9 +31,10 @@ function isInternational(seg) {
  * @param {string} depIata 出发机场 IATA
  * @param {string} arrIata 到达机场 IATA
  * @param {string[]} [hubs] 候选中转枢纽 IATA
+ * @param {number} [layoverHours] 中转驻留时长（小时），供签证引擎判定中转窗口
  * @returns {{dep:object,arr:object,options:Array}}
  */
-export function buildItineraries(md, depIata, arrIata, hubs = DEFAULT_HUBS) {
+export function buildItineraries(md, depIata, arrIata, hubs = DEFAULT_HUBS, layoverHours = 3) {
     const dep = getAirport(md, depIata);
     const arr = getAirport(md, arrIata);
     if (!dep) return { error: `出发机场 ${depIata} 未收录` };
@@ -49,7 +50,8 @@ export function buildItineraries(md, depIata, arrIata, hubs = DEFAULT_HUBS) {
         segments: [direct],
         totalKm: +direct.km.toFixed(2),
         international: isInternational(direct),
-        transitCountry: null
+        transitCountry: null,
+        layoverHours: 0
     });
 
     // 经枢纽中转方案
@@ -62,13 +64,15 @@ export function buildItineraries(md, depIata, arrIata, hubs = DEFAULT_HUBS) {
         seenHub.add(h);
         const s1 = makeSegment(dep, hub);
         const s2 = makeSegment(hub, arr);
+        s1.to.layoverHours = layoverHours; // 在枢纽处的驻留时长
         options.push({
             via: `经 ${h}（${hub.city}）中转`,
             viaIata: h,
             segments: [s1, s2],
             totalKm: +(s1.km + s2.km).toFixed(2),
             international: isInternational(s1) || isInternational(s2),
-            transitCountry: isInternational(s1) ? s1.to.country : null
+            transitCountry: isInternational(s1) ? s1.to.country : null,
+            layoverHours: layoverHours
         });
     }
 

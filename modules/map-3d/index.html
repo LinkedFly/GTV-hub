@@ -56,21 +56,28 @@
         );
         viewer.scene.globe.enableLighting = true;
 
-        // 复用 poi-calc 生成大圆航线采样点
-        const pts = greatCirclePoints(dep.lat, dep.lon, arr.lat, arr.lon, 80);
-        const positions = pts.map(p =>
-            Cesium.Cartesian3.fromDegrees(p[1], p[0], flightAlt)
-        );
-
-        viewer.entities.add({
-            polyline: {
-                positions,
-                width: 4000,
-                material: new Cesium.PolylineDashMaterialProperty({
-                    color: Cesium.Color.fromCssColorString('#009999'),
-                    dashLength: 16000
-                })
-            }
+        // 多航线叠加：所有航线以调色板颜色绘制大圆 + 端点圆点
+        const PALETTE = ["#009999","#D20A14","#003154","#FEDD00","#e86a2e","#7a5cff","#1f9d55","#d4458c","#2b7ff5","#b58900","#18b8a6","#f0523d"];
+        const allRoutes = Object.values(config.routes);
+        allRoutes.forEach((r, i) => {
+            const pts = greatCirclePoints(r.dep.lat, r.dep.lon, r.arr.lat, r.arr.lon, 80);
+            const positions = pts.map(p => Cesium.Cartesian3.fromDegrees(p[1], p[0], flightAlt));
+            viewer.entities.add({
+                polyline: {
+                    positions,
+                    width: 3000,
+                    material: new Cesium.PolylineDashMaterialProperty({
+                        color: Cesium.Color.fromCssColorString(PALETTE[i % PALETTE.length]),
+                        dashLength: 16000
+                    })
+                }
+            });
+            [r.dep, r.arr].forEach(p => {
+                viewer.entities.add({
+                    position: Cesium.Cartesian3.fromDegrees(p.lon, p.lat),
+                    point: { pixelSize: 6, color: Cesium.Color.fromCssColorString(PALETTE[i % PALETTE.length]) }
+                });
+            });
         });
 
         // 标注标签（经元数据引擎丰富：机场全名/IATA/国家/洲/货币/时区）
@@ -110,14 +117,15 @@
             }
         });
 
-        // 信息栏：航线名 + 大圆距离 + 起终点（元数据丰富）+ 执飞航司
+        // 信息栏：默认航线 + 大圆距离 + 起终点（元数据丰富）+ 执飞航司 + 叠加总数
         const dist = calcDistance(dep.lat, dep.lon, arr.lat, arr.lon);
         const de = enrichPlace(md, dep), ae = enrichPlace(md, arr);
         const al = getAirline(md, route.airline);
         document.getElementById("flightInfo").innerHTML =
             `<b>${route.name}</b><br>大圆航线距离：${dist} km` +
             `<br>${de.city}（${de.countryName || de.country}） → ${ae.city}（${ae.countryName || ae.country}）` +
-            `<br>执飞航司：${al ? `${al.name_zh}（${al.alliance}）` : (route.airline || '--')}`;
+            `<br>执飞航司：${al ? `${al.name_zh}（${al.alliance}）` : (route.airline || '--')}` +
+            `<br><span style="opacity:.8">已叠加全部 ${allRoutes.length} 条全球大圆航线</span>`;
 
         // 视角定位到航线
         viewer.camera.flyTo({

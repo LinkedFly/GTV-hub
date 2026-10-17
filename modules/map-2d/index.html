@@ -107,8 +107,12 @@
                 calcDistance(a.lat, a.lon, b.lat, b.lon);
         }
 
-        // 航线下拉由配置生成
+        // 航线下拉由配置生成（含「全部航线」多航线叠加）
         const routeSelect = document.getElementById("routeSelect");
+        const allOpt = document.createElement("option");
+        allOpt.value = "__all__";
+        allOpt.textContent = `全部航线（${Object.keys(config.routes).length} 条）`;
+        routeSelect.appendChild(allOpt);
         for (const key of Object.keys(config.routes)) {
             const opt = document.createElement("option");
             opt.value = key;
@@ -119,8 +123,39 @@
         // 航线图层状态
         let flightLine = null, markerDep = null, markerArr = null;
         let flightPoints = [], planeMarker = null, animTimer = null;
+        let allGroup = null;
+        const PALETTE = ["#009999", "#D20A14", "#003154", "#FEDD00", "#e86a2e", "#7a5cff", "#1f9d55", "#d4458c", "#2b7ff5", "#b58900", "#18b8a6", "#f0523d"];
+
+        function renderAllRoutes() {
+            if (allGroup) map.removeLayer(allGroup);
+            if (flightLine) map.removeLayer(flightLine);
+            if (markerDep) map.removeLayer(markerDep);
+            if (markerArr) map.removeLayer(markerArr);
+            if (planeMarker) map.removeLayer(planeMarker);
+            if (animTimer) { clearInterval(animTimer); animTimer = null; }
+            planeMarker = null;
+            allGroup = L.layerGroup().addTo(map);
+            const keys = Object.keys(config.routes);
+            const bounds = [];
+            keys.forEach((k, i) => {
+                const r = config.routes[k];
+                const pts = greatCirclePoints(r.dep.lat, r.dep.lon, r.arr.lat, r.arr.lon, 48);
+                const al = getAirline(md, r.airline);
+                L.polyline(pts, { color: PALETTE[i % PALETTE.length], weight: 2, opacity: 0.85, dashArray: "6,6" })
+                    .addTo(allGroup).bindPopup(`<b>${r.name}</b><br>执飞航司：${al ? al.name_zh : (r.airline || '--')}<br>大圆距离：${calcDistance(r.dep.lat, r.dep.lon, r.arr.lat, r.arr.lon)} km`);
+                L.marker([r.dep.lat, r.dep.lon]).addTo(allGroup).bindPopup(`<b>出发</b><br>${placePopup(r.dep)}`);
+                L.marker([r.arr.lat, r.arr.lon]).addTo(allGroup).bindPopup(`<b>到达</b><br>${placePopup(r.arr)}`);
+                bounds.push([r.dep.lat, r.dep.lon], [r.arr.lat, r.arr.lon]);
+            });
+            document.getElementById("flightDist").innerText = '—';
+            document.getElementById("airlineInfo").innerText = `全部 ${keys.length} 条航线叠加`;
+            if (bounds.length) map.fitBounds(bounds, { padding: [30, 30] });
+        }
 
         function renderRoute(routeKey) {
+            if (routeKey === "__all__") { renderAllRoutes(); return; }
+            if (allGroup) map.removeLayer(allGroup);
+            allGroup = null;
             if (flightLine) map.removeLayer(flightLine);
             if (markerDep) map.removeLayer(markerDep);
             if (markerArr) map.removeLayer(markerArr);
@@ -154,6 +189,7 @@
         routeSelect.onchange = () => renderRoute(routeSelect.value);
 
         document.getElementById("updateLineBtn").onclick = () => {
+            if (routeSelect.value === "__all__" || !flightLine) return;
             const color = document.getElementById("colorSelect").value;
             const w = Number(document.getElementById("weightInput").value);
             map.removeLayer(flightLine);
@@ -161,6 +197,7 @@
         };
 
         document.getElementById("playAnimBtn").onclick = () => {
+            if (routeSelect.value === "__all__" || !flightPoints.length) return;
             if (animTimer) clearInterval(animTimer);
             if (planeMarker) map.removeLayer(planeMarker);
             let idx = 0;
@@ -185,6 +222,7 @@
         };
 
         document.getElementById("resetViewBtn").onclick = () => {
+            if (routeSelect.value === "__all__") { renderAllRoutes(); return; }
             const r = config.routes[routeSelect.value];
             map.setView(r.view, r.zoom);
         };
