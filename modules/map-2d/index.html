@@ -5,8 +5,9 @@
     <!-- 移动端适配 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GTV-hub | 2D Map Demo - Multi Great Circle Flight</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Leaflet 本地化（vendor，避免外网 CDN 不可达） -->
+    <link rel="stylesheet" href="../../libs/leaflet/leaflet.min.css" />
+    <script src="../../libs/leaflet/leaflet.min.js"></script>
     <style>
         * {margin:0;padding:0;box-sizing:border-box;}
         html, body { height: 100%; font-family: system-ui, sans-serif; }
@@ -152,10 +153,13 @@
             if (animTimer) clearInterval(animTimer);
             if (planeMarker) map.removeLayer(planeMarker);
             let idx = 0;
+            // 本地 emoji 飞机图标，无外部 CDN 依赖
             planeMarker = L.marker(flightPoints[0], {
-                icon: L.icon({
-                    iconUrl: "https://cdn-icons-png.flaticon.com/32/126/126472.png",
-                    iconSize: [24, 24]
+                icon: L.divIcon({
+                    className: 'plane-ico',
+                    html: '<span style="font-size:22px;line-height:1">&#9992;&#65039;</span>',
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
                 })
             }).addTo(map);
             animTimer = setInterval(() => {

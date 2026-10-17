@@ -45,3 +45,6 @@ build/
 
 # Local raw data (large csv/geojson)
 data/raw-cache/
+# Local preview screenshots & diagnostics
+_shot_*.png
+_diag*.txt
