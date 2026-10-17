@@ -39,6 +39,7 @@
     <div class="info-bar">
         <span>酒店 ↔ 古城直线距离：<span id="distance">--</span> km</span>
         <span>大圆航班距离：<span id="flightDist">--</span> km</span>
+        <span>执飞航司：<span id="airlineInfo">--</span></span>
     </div>
     <div class="control-panel">
         <label>航线选择
@@ -63,7 +64,7 @@
     <!-- 引入公共地理算法模块（ES Module） -->
     <script type="module">
         import { calcDistance, greatCirclePoints } from '../poi-calc/poi-calc.js';
-        import { loadMetadata, enrichPlace } from '../../core/metadata/metadata.js';
+        import { loadMetadata, enrichPlace, getAirline } from '../../core/metadata/metadata.js';
 
         // 航线 / POI 配置统一从 data/routes.json 读取（2D / 3D 共用）
         const config = await (await fetch('../../data/routes.json')).json();
@@ -144,6 +145,9 @@
 
             document.getElementById("flightDist").innerText =
                 calcDistance(dep.lat, dep.lon, arr.lat, arr.lon);
+            const al = getAirline(md, r.airline);
+            document.getElementById("airlineInfo").innerText =
+                al ? `${al.name_zh}（${al.alliance} · ${al.country}）` : (r.airline || '--');
             map.setView(r.view, r.zoom);
         }
 

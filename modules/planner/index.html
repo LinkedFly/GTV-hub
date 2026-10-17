@@ -19,6 +19,8 @@
   select, button{ width:100%; padding:9px 10px; border:1px solid #ccd6de; border-radius:8px; font-size:14px; background:#fff; }
   .btn{ background:var(--navy); color:#fff; border:none; cursor:pointer; font-weight:600; }
   .btn:hover{ background:#00487c; }
+  .btn-row{ display:flex; gap:10px; margin-top:14px; }
+  .btn-row .btn{ width:auto; padding:9px 18px; }
   .notice{ font-size:12px; color:#8a97a3; margin-top:10px; }
   table{ width:100%; border-collapse:collapse; font-size:13px; }
   th,td{ border-bottom:1px solid #eef2f5; padding:8px 8px; text-align:left; }
@@ -31,13 +33,25 @@
   .seg{ font-size:12px; color:#5a6b7a; }
   .empty{ color:#8a97a3; font-size:13px; padding:10px 0; }
   footer{ text-align:center; font-size:11px; color:#9aa6b0; margin-top:24px; }
+  /* 导出弹窗 */
+  .modal-mask{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:999; align-items:center; justify-content:center; padding:20px; }
+  .modal-mask.show{ display:flex; }
+  .modal{ background:#fff; border-radius:14px; max-width:720px; width:100%; max-height:86vh; overflow:auto; padding:22px; box-shadow:0 10px 40px rgba(0,0,0,.25); }
+  .modal h2{ font-size:16px; color:var(--navy); margin-bottom:6px; }
+  .modal .meta{ font-size:12px; color:#7a8894; margin-bottom:14px; }
+  .modal pre{ background:#f7f9fb; border:1px solid #e7ecf0; border-radius:10px; padding:14px; font-size:13px; line-height:1.7; white-space:pre-wrap; word-break:break-word; font-family:inherit; }
+  .modal .mbar{ display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .mbtn{ border:none; padding:9px 16px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; }
+  .mbtn.dl{ background:var(--navy); color:#fff; } .mbtn.pr{ background:var(--teal); color:#fff; } .mbtn.cl{ background:#eef2f5; color:#333; }
+  @media print{ body *{ visibility:hidden; } .modal-mask{ position:absolute; inset:0; display:block; background:#fff; padding:0; }
+    .modal-mask, .modal-mask *{ visibility:visible; } .modal{ max-height:none; box-shadow:none; width:100%; } .mbar{ display:none; } }
 </style>
 </head>
 <body>
 <header>
   <a class="back" href="../../index.html">← 返回仓库首页</a>
   <h1>行程规划器</h1>
-  <p>行程引擎(直达/中转) + 签证预警引擎(入境/中转)</p>
+  <p>行程引擎(直达/中转) + 签证预警引擎(入境/中转) + 航班时刻 + 行程单导出</p>
 </header>
 <div class="wrap">
   <div class="card">
@@ -47,7 +61,10 @@
       <div><label>出发机场</label><select id="depIata"></select></div>
       <div><label>到达机场</label><select id="arrIata"></select></div>
     </div>
-    <button class="btn" id="generate" style="margin-top:14px;">生成行程方案</button>
+    <div class="btn-row">
+      <button class="btn" id="generate">生成行程方案</button>
+      <button class="btn" id="exportBtn" style="background:var(--teal);">导出行程单</button>
+    </div>
     <div class="notice">* 签证规则为<b>示例数据</b>，实际出行请以目的地官方信息为准。</div>
   </div>
 
@@ -65,7 +82,21 @@
     <h2>可用航班（示例时刻）</h2>
     <div id="sched"><div class="empty">选中一个行程方案后展示各航段匹配的航班时刻（当前为占位示例）。</div></div>
   </div>
-  <footer>GTV-hub · SDD v1.1 · core/itinerary-engine + core/visa-warning-engine + 航班时刻</footer>
+  <footer>GTV-hub · SDD v1.1 · core/itinerary-engine + core/visa-warning-engine + 航班时刻 + 行程单</footer>
+</div>
+
+<!-- 导出弹窗 -->
+<div class="modal-mask" id="modalMask">
+  <div class="modal">
+    <h2>行程单</h2>
+    <div class="meta" id="modalMeta"></div>
+    <pre id="itineraryText"></pre>
+    <div class="mbar">
+      <button class="mbtn dl" id="dlTxt">下载 .txt</button>
+      <button class="mbtn pr" id="prItin">打印 / 存为 PDF</button>
+      <button class="mbtn cl" id="clModal">关闭</button>
+    </div>
+  </div>
 </div>
 
 <script type="module">
@@ -75,7 +106,10 @@ import { loadVisaRules, checkItinerary, checkEntry } from '../../core/visa-warni
 const md = await loadMetadata();
 const rules = await loadVisaRules();
 const SCHED = await (await fetch('../../data/flight-schedules/schedules.json')).json();
+const AIR = (await (await fetch('../../data/airport-airline/airlines.json')).json()).airlines;
+const airOf = code => AIR.find(a => a.iata === code) || null;
 const $ = id => document.getElementById(id);
+let currentOption = null; // 当前选中的行程方案，供导出
 
 // 填充国籍
 const natSel = $('nationality');
@@ -99,6 +133,7 @@ function fillAir(sel, def) {
 fillAir($('depIata'), 'CAN');
 fillAir($('arrIata'), 'LIS');
 
+const airName = c => { const a = md.airports.find(x => x.iata === c); return a ? `${a.city}(${c})` : c; };
 const visaLabel = { 'visa-free':'免签','visa-on-arrival':'落地签','e-visa':'电子签','visa-required':'需签证','visa-free-airport':'机场过境免签','unknown':'待核实' };
 
 function renderOptions(r) {
@@ -122,12 +157,13 @@ function renderOptions(r) {
         tr.addEventListener('click', () => {
             box.querySelectorAll('.opt-row').forEach(t => t.classList.remove('selected'));
             tr.classList.add('selected');
-            renderVisa(r.options[+tr.dataset.i]);
-            renderSchedules(r.options[+tr.dataset.i]);
+            currentOption = r.options[+tr.dataset.i];
+            renderVisa(currentOption);
+            renderSchedules(currentOption);
         });
     });
     const first = r.options[0];
-    if (first) { box.querySelector('.opt-row').classList.add('selected'); renderVisa(first); renderSchedules(first); }
+    if (first) { box.querySelector('.opt-row').classList.add('selected'); currentOption = first; renderVisa(first); renderSchedules(first); }
 }
 
 function renderVisa(option) {
@@ -151,7 +187,7 @@ function renderVisa(option) {
     box.innerHTML = html;
 }
 
-// 可用航班（示例）：按航段的 IATA 起止匹配 schedules.json
+// 可用航班（示例）：按航段的 IATA 起止匹配 schedules.json，并解析执飞航司
 function renderSchedules(option) {
     const box = $('sched');
     const segs = option.segments || [];
@@ -165,10 +201,12 @@ function renderSchedules(option) {
         box.innerHTML = `<div class="empty">该方案航段暂无匹配的航班时刻（数据源为占位示例）。</div>`;
         return;
     }
-    let html = `<table><tr><th>航段</th><th>航司</th><th>航班号</th><th>出发</th><th>到达</th><th>执飞日</th><th>状态</th></tr>`;
+    let html = `<table><tr><th>航段</th><th>执飞航司</th><th>航班号</th><th>出发</th><th>到达</th><th>执飞日</th><th>状态</th></tr>`;
     for (const f of matched) {
+        const al = airOf(f.airline);
+        const alTxt = al ? `${al.name_zh}（${al.alliance}）` : f.carrier;
         html += `<tr>
-            <td>${f.dep}→${f.arr}</td><td>${f.carrier}</td><td><b>${f.flight}</b></td>
+            <td>${f.dep}→${f.arr}</td><td>${alTxt}</td><td><b>${f.flight}</b></td>
             <td class="seg">${f.depTime}<br><small>${f.depTz}</small></td>
             <td class="seg">${f.arrTime}<br><small>${f.arrTz}</small></td>
             <td>${Array.isArray(f.days) ? f.days.join('/') : f.days}</td>
@@ -177,6 +215,63 @@ function renderSchedules(option) {
     html += `</table>`;
     box.innerHTML = html;
 }
+
+// —— 行程单导出 ——
+function buildItineraryText() {
+    const nat = $('nationality').value;
+    const lines = [];
+    lines.push('════════ GTV-hub 行程单 ════════');
+    lines.push(`护照国籍：${nat}`);
+    lines.push(`起止：${airName($('depIata').value)} → ${airName($('arrIata').value)}`);
+    lines.push(`方案：${currentOption.via}`);
+    lines.push(`总距离：${currentOption.totalKm} km${currentOption.international ? '（含国际航段）' : ''}`);
+    lines.push('');
+    lines.push('【分段】');
+    currentOption.segments.forEach((s, i) => {
+        lines.push(`  ${i + 1}. ${airName(s.from.iata)} → ${airName(s.to.iata)}    ${s.km} km`);
+    });
+    const segs = currentOption.segments;
+    const matched = [];
+    for (const s of segs) for (const f of SCHED.schedules) if (f.dep === s.from.iata && f.arr === s.to.iata) matched.push(f);
+    if (matched.length) {
+        lines.push('');
+        lines.push('【航班时刻（示例）】');
+        for (const f of matched) {
+            const al = airOf(f.airline);
+            lines.push(`  ${f.dep}→${f.arr}  ${al ? al.name_zh : f.carrier}  ${f.flight}  ${f.depTime}(${f.depTz}) → ${f.arrTime}(${f.arrTz})`);
+        }
+    }
+    const warnings = checkItinerary(rules, nat, currentOption);
+    if (warnings.length) {
+        lines.push('');
+        lines.push('【签证预警】');
+        for (const w of warnings) {
+            const c = w.toCountry || w.transitCountry;
+            lines.push(`  ${w.type === 'transit' ? '中转' : '入境'} ${c}：${visaLabel[w.visa] || w.visa}${w.maxDays ? ' / ' + w.maxDays + ' 天' : ''} — ${w.note || ''}`);
+        }
+    }
+    lines.push('');
+    lines.push('注：签证规则为示例数据，航班时刻为占位示例，请以官方/真实数据为准。');
+    return lines.join('\n');
+}
+
+$('exportBtn').addEventListener('click', () => {
+    if (!currentOption) { alert('请先生成并选择一个行程方案'); return; }
+    $('itineraryText').textContent = buildItineraryText();
+    $('modalMeta').textContent = `${currentOption.via} · ${currentOption.totalKm} km · 生成于 ${new Date().toLocaleString()}`;
+    $('modalMask').classList.add('show');
+});
+$('dlTxt').addEventListener('click', () => {
+    const blob = new Blob([buildItineraryText()], { type: 'text/plain;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'gtv-itinerary.txt';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+$('prItin').addEventListener('click', () => window.print());
+$('clModal').addEventListener('click', () => $('modalMask').classList.remove('show'));
+$('modalMask').addEventListener('click', e => { if (e.target === $('modalMask')) $('modalMask').classList.remove('show'); });
 
 $('generate').addEventListener('click', () => {
     const r = buildItineraries(md, $('depIata').value, $('arrIata').value);

@@ -3,6 +3,7 @@
   "routes": {
     "LIS-CV": {
       "name": "LIS里斯本 → 佛得角",
+      "airline": "TP",
       "view": [26, -16],
       "zoom": 4,
       "dep": {
@@ -23,6 +24,7 @@
     },
     "CAN-LIS": {
       "name": "CAN广州 → LIS里斯本",
+      "airline": "CZ",
       "view": [32, 10],
       "zoom": 3,
       "dep": {

@@ -25,7 +25,7 @@
 
     <script type="module">
         import { calcDistance, greatCirclePoints } from '../poi-calc/poi-calc.js';
-        import { loadMetadata, enrichPlace } from '../../core/metadata/metadata.js';
+        import { loadMetadata, enrichPlace, getAirline } from '../../core/metadata/metadata.js';
 
         // 航线 / POI 配置统一从 data/routes.json 读取（2D / 3D 共用）
         const config = await (await fetch('../../data/routes.json')).json();
@@ -110,12 +110,14 @@
             }
         });
 
-        // 信息栏：航线名 + 大圆距离 + 起终点（元数据丰富）
+        // 信息栏：航线名 + 大圆距离 + 起终点（元数据丰富）+ 执飞航司
         const dist = calcDistance(dep.lat, dep.lon, arr.lat, arr.lon);
         const de = enrichPlace(md, dep), ae = enrichPlace(md, arr);
+        const al = getAirline(md, route.airline);
         document.getElementById("flightInfo").innerHTML =
             `<b>${route.name}</b><br>大圆航线距离：${dist} km` +
-            `<br>${de.city}（${de.countryName || de.country}） → ${ae.city}（${ae.countryName || ae.country}）`;
+            `<br>${de.city}（${de.countryName || de.country}） → ${ae.city}（${ae.countryName || ae.country}）` +
+            `<br>执飞航司：${al ? `${al.name_zh}（${al.alliance}）` : (route.airline || '--')}`;
 
         // 视角定位到航线
         viewer.camera.flyTo({
