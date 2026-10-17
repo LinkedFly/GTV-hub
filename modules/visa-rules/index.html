@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>签证规则编排 · GTV-hub</title>
+<style>
+  :root{ --navy:#003154; --teal:#009999; --red:#D20A14; --gold:#FEDD00; --bg:#f4f6f8; --card:#fff; }
+  *{ box-sizing:border-box; margin:0; padding:0; font-family:"Segoe UI", system-ui, "Microsoft YaHei", sans-serif; }
+  body{ background:var(--bg); color:#1c2b39; padding-bottom:48px; }
+  header{ background:var(--navy); color:#fff; padding:16px 22px; }
+  header h1{ font-size:19px; }
+  header p{ font-size:12px; opacity:.75; margin-top:3px; }
+  .back{ color:var(--gold); text-decoration:none; font-size:12px; }
+  .wrap{ max-width:1200px; margin:18px auto; padding:0 16px; }
+  .toolbar{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+  .btn{ background:var(--navy); color:#fff; border:none; padding:9px 18px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; }
+  .btn:hover{ background:#00487c; }
+  .btn.gold{ background:var(--gold); color:var(--navy); }
+  .btn.red{ background:#fff; color:var(--red); border:1.5px solid var(--red); }
+  .btn.ghost{ background:#eef2f5; color:var(--navy); }
+  .status{ font-size:13px; color:var(--teal); font-weight:600; }
+  .card{ background:var(--card); border-radius:12px; box-shadow:0 1px 4px rgba(0,0,0,.06); overflow:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:13px; min-width:1000px; }
+  thead th{ position:sticky; top:0; background:var(--navy); color:#fff; padding:9px 8px; text-align:left; font-weight:600; white-space:nowrap; }
+  tbody td{ border-bottom:1px solid #eef2f5; padding:6px 8px; vertical-align:middle; }
+  tbody tr:hover{ background:#f7fafc; }
+  select, input[type=text], input[type=number]{ width:100%; padding:6px 7px; border:1px solid #ccd6de; border-radius:7px; font-size:13px; }
+  select.scope-entry{ border-color:var(--teal); }
+  select.scope-transit{ border-color:#e89b00; }
+  .del{ background:#fff; color:var(--red); border:1px solid var(--red); border-radius:6px; padding:4px 8px; cursor:pointer; font-size:12px; }
+  .del:hover{ background:#fdeceb; }
+  .badge{ display:inline-block; padding:2px 8px; border-radius:10px; font-size:11px; color:#fff; }
+  .b-warn{ background:var(--red);} .b-caution{ background:#e89b00;} .b-ok{ background:var(--teal);} .b-info{ background:#8a97a3;}
+  .note-line{ font-size:11px; color:#9aa6b0; margin:10px 2px; line-height:1.6; }
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../../index.html">← 返回仓库首页</a>
+  <h1>签证规则编排</h1>
+  <p>可编辑表格 · 增删改 · 保存写回 data/visa-rules/visa-rules.json（与签证预警引擎同源）</p>
+</header>
+<div class="wrap">
+  <div class="toolbar">
+    <button class="btn gold" id="addBtn">+ 新增规则</button>
+    <button class="btn" id="saveBtn">保存到 visa-rules.json</button>
+    <span class="status" id="status"></span>
+  </div>
+  <div class="card">
+    <table id="grid">
+      <thead><tr>
+        <th style="width:120px">目的地国家</th>
+        <th style="width:120px">护照国籍</th>
+        <th style="width:90px">场景</th>
+        <th style="width:130px">签证类型</th>
+        <th style="width:80px">最长停留</th>
+        <th>说明</th>
+        <th style="width:52px"></th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <div class="note-line">* 示例规则集，仅演示编排能力；保存会覆盖 visa-rules.json。真实出行请以目的地官方信息为准。</div>
+</div>
+
+<script type="module">
+import { loadMetadata } from '../../core/metadata/metadata.js';
+
+const $ = id => document.getElementById(id);
+const VISA_TYPES = ['visa-free','visa-on-arrival','e-visa','visa-required','visa-free-airport','unknown'];
+const VISA_LABEL = { 'visa-free':'免签','visa-on-arrival':'落地签','e-visa':'电子签','visa-required':'需签证','visa-free-airport':'机场过境免签','unknown':'待核实' };
+
+const md = await loadMetadata();
+const countries = Object.entries(md.countries).sort((a,b)=>a[0].localeCompare(b[0]));
+
+let rows = [];
+
+function countryOptions(sel, cur){
+  sel.innerHTML='';
+  for(const [code,c] of countries){
+    const o=document.createElement('option'); o.value=code; o.textContent=`${code} · ${c.name_zh||c.name_en||code}`; sel.appendChild(o);
+  }
+  sel.value=cur||'CN';
+}
+function visaOptions(sel, cur){
+  sel.innerHTML='';
+  for(const t of VISA_TYPES){ const o=document.createElement('option'); o.value=t; o.textContent=VISA_LABEL[t]; sel.appendChild(o); }
+  sel.value=cur||'unknown';
+}
+
+function addRow(r){
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><select class="c-dest"></select></td>
+    <td><select class="c-nat"></select></td>
+    <td><select class="c-scope"><option value="entry">入境</option><option value="transit">中转</option></select></td>
+    <td><select class="c-visa"></select></td>
+    <td><input class="c-days" type="number" min="0" value="${r.maxDays??''}" placeholder="—"></td>
+    <td><input class="c-note" type="text" value="${(r.note||'').replace(/"/g,'&quot;')}" placeholder="说明"></td>
+    <td><button class="del">删</button></td>`;
+  const dest=tr.querySelector('.c-dest'), nat=tr.querySelector('.c-nat'), scope=tr.querySelector('.c-scope'),
+        visa=tr.querySelector('.c-visa'), days=tr.querySelector('.c-days'), note=tr.querySelector('.c-note');
+  countryOptions(dest,r.dest); countryOptions(nat,r.nat);
+  scope.value=r.scope||'entry';
+  visaOptions(visa,r.visa);
+  scope.addEventListener('change',()=>{ scope.className='c-scope scope-'+(scope.value==='transit'?'transit':'entry'); });
+  scope.className='c-scope scope-'+(scope.value==='transit'?'transit':'entry');
+  tr.querySelector('.del').addEventListener('click',()=>{ tr.remove(); setStatus('已删除一行（未保存）',''); });
+  $('tbody').appendChild(tr);
+}
+
+async function load(){
+  const rules = (await (await fetch('../../data/visa-rules/visa-rules.json')).json()).rules;
+  rows=[];
+  for(const [dest,node] of Object.entries(rules)){
+    for(const scope of ['entry','transit']){
+      for(const [nat,rule] of Object.entries(node[scope]||{})){
+        rows.push({dest,nat,scope,visa:rule.visa,maxDays:rule.maxDays,note:rule.note||''});
+      }
+    }
+  }
+  $('tbody').innerHTML='';
+  rows.forEach(addRow);
+}
+function collect(){
+  const out={};
+  document.querySelectorAll('#tbody tr').forEach(tr=>{
+    const dest=tr.querySelector('.c-dest').value, nat=tr.querySelector('.c-nat').value,
+          scope=tr.querySelector('.c-scope').value, visa=tr.querySelector('.c-visa').value,
+          days=tr.querySelector('.c-days').value, note=tr.querySelector('.c-note').value;
+    if(!dest||!nat) return;
+    out[dest]=out[dest]||{country:md.countries[dest]?.name_zh||dest, entry:{}, transit:{}};
+    const rule={visa};
+    if(days!=='') rule.maxDays=+days;
+    if(note.trim()) rule.note=note.trim();
+    out[dest][scope][nat]=rule;
+  });
+  return out;
+}
+function setStatus(msg,cls=''){ $('status').textContent=msg; $('status').className='status '+cls; }
+
+$('addBtn').addEventListener('click',()=>addRow({dest:'CN',nat:'CN',scope:'entry',visa:'unknown',maxDays:'',note:''}));
+$('saveBtn').addEventListener('click',async()=>{
+  const old=(await (await fetch('../../data/visa-rules/visa-rules.json')).json());
+  const payload={ _meta: old._meta || {note:'示例签证规则集'}, rules: collect() };
+  setStatus('保存中…','');
+  const resp=await fetch('/api/save/visa-rules',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  const r=await resp.json();
+  if(r.ok){ setStatus('✅ 已保存 '+Object.keys(payload.rules).length+' 个国家规则'); } else { setStatus('❌ 保存失败：'+JSON.stringify(r)); }
+});
+
+await load();
+setStatus('已加载 ' + rows.length + ' 条规则');
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "note": "航班时刻数据。当前为占位示例时刻（placeholder），非真实时刻表；真实航班时刻需接入数据源（如飞常准/航司API，需账户余额或钥匙）后以相同结构替换/填充。每条记录 placeholder=true 表示占位。",
+    "source": "GTV-hub demo placeholder（待接入真实数据源）",
+    "updated": "2026-10-17"
+  },
+  "schedules": [
+    {
+      "routeKey": "LIS-RAI",
+      "placeholder": true,
+      "carrier": "TAP 葡萄牙航空",
+      "flight": "TP1543（占位）",
+      "dep": "LIS",
+      "depTime": "10:35",
+      "depTz": "Europe/Lisbon",
+      "arr": "RAI",
+      "arrTime": "13:40",
+      "arrTz": "Atlantic/Cape_Verde",
+      "days": ["MON", "WED", "FRI", "SUN"],
+      "aircraft": "A320neo（占位）",
+      "note": "占位示例，非真实时刻"
+    },
+    {
+      "routeKey": "LIS-SID",
+      "placeholder": true,
+      "carrier": "TAP 葡萄牙航空",
+      "flight": "TP1549（占位）",
+      "dep": "LIS",
+      "depTime": "07:00",
+      "depTz": "Europe/Lisbon",
+      "arr": "SID",
+      "arrTime": "10:05",
+      "arrTz": "Atlantic/Cape_Verde",
+      "days": ["TUE", "THU", "SAT"],
+      "aircraft": "A321neo（占位）",
+      "note": "占位示例，非真实时刻"
+    },
+    {
+      "routeKey": "CAN-LIS",
+      "placeholder": true,
+      "carrier": "（示例）经欧洲枢纽中转",
+      "flight": "CZ+TP 联程（占位）",
+      "dep": "CAN",
+      "depTime": "00:30",
+      "depTz": "Asia/Shanghai",
+      "arr": "LIS",
+      "arrTime": "次日 18:40",
+      "arrTz": "Europe/Lisbon",
+      "days": ["DAILY"],
+      "aircraft": "A350 + A320（占位）",
+      "note": "占位示例，真实联程时刻需查询中转数据源"
+    },
+    {
+      "routeKey": "HKG-LIS",
+      "placeholder": true,
+      "carrier": "（示例）经多哈/迪拜中转",
+      "flight": "QR+QR / EK+TP 联程（占位）",
+      "dep": "HKG",
+      "depTime": "08:00",
+      "depTz": "Asia/Hong_Kong",
+      "arr": "LIS",
+      "arrTime": "次日 16:00",
+      "arrTz": "Europe/Lisbon",
+      "days": ["DAILY"],
+      "aircraft": "B777 + A321（占位）",
+      "note": "占位示例"
+    },
+    {
+      "routeKey": "SIN-KUL",
+      "placeholder": true,
+      "carrier": "（示例）区域快线",
+      "flight": "TR/3K 短途（占位）",
+      "dep": "SIN",
+      "depTime": "09:10",
+      "depTz": "Asia/Singapore",
+      "arr": "KUL",
+      "arrTime": "10:20",
+      "arrTz": "Asia/Kuala_Lumpur",
+      "days": ["DAILY"],
+      "aircraft": "A320（占位）",
+      "note": "占位示例"
+    }
+  ]
+}

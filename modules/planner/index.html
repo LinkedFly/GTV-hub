@@ -60,7 +60,12 @@
     <h2>签证预警</h2>
     <div id="visa"><div class="empty">选中一个行程方案后展示逐段签证判定。</div></div>
   </div>
-  <footer>GTV-hub · SDD v1.1 · core/itinerary-engine + core/visa-warning-engine</footer>
+
+  <div class="card">
+    <h2>可用航班（示例时刻）</h2>
+    <div id="sched"><div class="empty">选中一个行程方案后展示各航段匹配的航班时刻（当前为占位示例）。</div></div>
+  </div>
+  <footer>GTV-hub · SDD v1.1 · core/itinerary-engine + core/visa-warning-engine + 航班时刻</footer>
 </div>
 
 <script type="module">
@@ -69,6 +74,7 @@ import { loadVisaRules, checkItinerary, checkEntry } from '../../core/visa-warni
 
 const md = await loadMetadata();
 const rules = await loadVisaRules();
+const SCHED = await (await fetch('../../data/flight-schedules/schedules.json')).json();
 const $ = id => document.getElementById(id);
 
 // 填充国籍
@@ -117,10 +123,11 @@ function renderOptions(r) {
             box.querySelectorAll('.opt-row').forEach(t => t.classList.remove('selected'));
             tr.classList.add('selected');
             renderVisa(r.options[+tr.dataset.i]);
+            renderSchedules(r.options[+tr.dataset.i]);
         });
     });
     const first = r.options[0];
-    if (first) { box.querySelector('.opt-row').classList.add('selected'); renderVisa(first); }
+    if (first) { box.querySelector('.opt-row').classList.add('selected'); renderVisa(first); renderSchedules(first); }
 }
 
 function renderVisa(option) {
@@ -139,6 +146,33 @@ function renderVisa(option) {
             <td>${w.maxDays ? w.maxDays + ' 天' : '—'}</td>
             <td><span class="badge ${badge}">${w.level}</span></td>
             <td class="seg">${w.note || ''}</td></tr>`;
+    }
+    html += `</table>`;
+    box.innerHTML = html;
+}
+
+// 可用航班（示例）：按航段的 IATA 起止匹配 schedules.json
+function renderSchedules(option) {
+    const box = $('sched');
+    const segs = option.segments || [];
+    const matched = [];
+    for (const s of segs) {
+        for (const f of SCHED.schedules) {
+            if (f.dep === s.from.iata && f.arr === s.to.iata) matched.push(f);
+        }
+    }
+    if (!matched.length) {
+        box.innerHTML = `<div class="empty">该方案航段暂无匹配的航班时刻（数据源为占位示例）。</div>`;
+        return;
+    }
+    let html = `<table><tr><th>航段</th><th>航司</th><th>航班号</th><th>出发</th><th>到达</th><th>执飞日</th><th>状态</th></tr>`;
+    for (const f of matched) {
+        html += `<tr>
+            <td>${f.dep}→${f.arr}</td><td>${f.carrier}</td><td><b>${f.flight}</b></td>
+            <td class="seg">${f.depTime}<br><small>${f.depTz}</small></td>
+            <td class="seg">${f.arrTime}<br><small>${f.arrTz}</small></td>
+            <td>${Array.isArray(f.days) ? f.days.join('/') : f.days}</td>
+            <td>${f.placeholder ? '<span class="badge b-caution">占位</span>' : '<span class="badge b-ok">真实</span>'}</td></tr>`;
     }
     html += `</table>`;
     box.innerHTML = html;

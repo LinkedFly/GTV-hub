@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>航班时刻 · GTV-hub</title>
+<style>
+  :root{ --navy:#003154; --teal:#009999; --red:#D20A14; --gold:#FEDD00; --amber:#b7791f; --bg:#f4f6f8; --card:#fff; }
+  *{ box-sizing:border-box; margin:0; padding:0; font-family:"Segoe UI", system-ui, "Microsoft YaHei", sans-serif; }
+  body{ background:var(--bg); color:#1c2b39; padding-bottom:48px; }
+  header{ background:var(--navy); color:#fff; padding:16px 22px; }
+  header h1{ font-size:19px; } header p{ font-size:12px; opacity:.75; margin-top:3px; }
+  .back{ color:var(--gold); text-decoration:none; font-size:12px; }
+  .wrap{ max-width:980px; margin:18px auto; padding:0 16px; }
+  .banner{ background:#fff8e6; border:1px solid #f0d9a0; color:var(--amber); border-radius:10px; padding:12px 16px; font-size:13px; line-height:1.7; margin-bottom:16px; }
+  .controls{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:16px; }
+  .controls label{ font-size:13px; color:#5a6b7a; }
+  select{ padding:9px 12px; border:1px solid #ccd6de; border-radius:8px; font-size:14px; min-width:220px; }
+  .card{ background:var(--card); border-radius:12px; box-shadow:0 1px 4px rgba(0,0,0,.06); padding:18px; }
+  .card h2{ font-size:15px; color:var(--navy); border-left:4px solid var(--teal); padding-left:8px; margin-bottom:14px; }
+  table{ width:100%; border-collapse:collapse; font-size:13px; }
+  th,td{ border-bottom:1px solid #eef2f5; padding:9px 8px; text-align:left; }
+  th{ background:#f0f4f7; color:var(--navy); font-weight:600; }
+  .ph{ display:inline-block; background:#fff3d6; color:var(--amber); border:1px solid #f0d9a0; font-size:11px; padding:2px 8px; border-radius:10px; }
+  .empty{ color:#8a97a3; font-size:13px; padding:10px 0; }
+  .seg{ font-size:12px; color:#5a6b7a; }
+  footer{ text-align:center; font-size:11px; color:#9aa6b0; margin-top:24px; }
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../../index.html">← 返回仓库首页</a>
+  <h1>航班时刻</h1>
+  <p>按航线查看航班时刻 · 数据层已就绪（当前为占位示例，待接入真实数据源）</p>
+</header>
+<div class="wrap">
+  <div class="banner">⚠️ <b>当前为占位示例时刻，非真实时刻表。</b>真实航班时刻需接入数据源（如飞常准连接器，需账户余额）后写入
+    <code>data/flight-schedules/schedules.json</code>，页面与行程引擎会自动读取更新。</div>
+  <div class="controls">
+    <label>航线</label>
+    <select id="routeSel"></select>
+  </div>
+  <div class="card">
+    <h2>航班列表</h2>
+    <div id="list"><div class="empty">请选择航线。</div></div>
+  </div>
+  <footer>GTV-hub · 航班时刻模块 · data/flight-schedules/schedules.json</footer>
+</div>
+
+<script type="module">
+import { loadMetadata } from '../../core/metadata/metadata.js';
+
+const md = await loadMetadata();
+const S = await (await fetch('../../data/flight-schedules/schedules.json')).json();
+const $ = id => document.getElementById(id);
+
+// 航线下拉（按机场IATA解出城市名）
+const air = i => { const a = md.airports.find(x => x.iata === i); return a ? `${a.city} (${i})` : i; };
+const keys = [...new Set(S.schedules.map(s => s.routeKey))];
+const routeSel = $('routeSel');
+for (const k of keys) {
+    const [d, a] = k.split('-');
+    const o = document.createElement('option');
+    o.value = k;
+    o.textContent = `${air(d)} → ${air(a)}`;
+    routeSel.appendChild(o);
+}
+const daysLabel = d => Array.isArray(d) ? d.join('/') : String(d);
+
+function render(key) {
+    const list = S.schedules.filter(s => s.routeKey === key);
+    const box = $('list');
+    if (!list.length) { box.innerHTML = '<div class="empty">该航线暂无时刻数据。</div>'; return; }
+    let html = `<table><tr><th>航司</th><th>航班号</th><th>出发</th><th>到达</th><th>执飞日</th><th>机型</th><th>状态</th><th>说明</th></tr>`;
+    for (const s of list) {
+        html += `<tr>
+            <td>${s.carrier}</td>
+            <td><b>${s.flight}</b></td>
+            <td class="seg">${air(s.dep)} ${s.depTime}<br><small>${s.depTz}</small></td>
+            <td class="seg">${air(s.arr)} ${s.arrTime}<br><small>${s.arrTz}</small></td>
+            <td>${daysLabel(s.days)}</td>
+            <td>${s.aircraft}</td>
+            <td>${s.placeholder ? '<span class="ph">占位</span>' : '<span style="color:var(--teal);font-weight:600">真实</span>'}</td>
+            <td class="seg">${s.note || ''}</td></tr>`;
+    }
+    html += `</table>`;
+    box.innerHTML = html;
+}
+render(keys[0]);
+routeSel.addEventListener('change', () => render(routeSel.value));
+</script>
+</body>
+</html>
